@@ -12,6 +12,7 @@ ying = "ying:main"
 [tool.poetry.dependencies]
 python = "^3.12"
 rich = "^13.7.1"
+black = "^24.4.2"
 
 [tool.poetry.group.test.dependencies]
 pytest = "^8.0.0"
