@@ -75,28 +75,31 @@ class InitCommand(CliCommand):
         if not is_force:
             project_name = InitCommand.get_user_input(
                 f"Project Name (default: {project_directory.name}): ",
-                project_directory.name,
+                project_name,
             )
 
             if project_name is None:
                 return
 
             project_description = InitCommand.get_user_input(
-                "Project description: ", ""
+                "Project description: ",
+                project_description,
             )
 
             if project_description is None:
                 return
 
             project_version = InitCommand.get_user_input(
-                "Project version (default: 0.0.0): ", "0.0.0"
+                "Project version (default: 0.0.0): ",
+                project_version,
             )
 
             if project_version is None:
                 return
 
             project_license = InitCommand.get_user_input(
-                "Project license (default: proprietary): ", "proprietary"
+                "Project license (default: proprietary): ",
+                project_license,
             )
 
             if project_license is None:
