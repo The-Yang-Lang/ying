@@ -5,6 +5,7 @@ from os import getenv
 from rich.logging import RichHandler
 
 from ying.cli import CliApplication
+from ying.commands.DoctorCommand import DoctorCommand
 from ying.commands.InitCommand import InitCommand
 
 
@@ -19,7 +20,10 @@ class Application(CliApplication):
         return None
 
     def get_commands(self):
-        return [InitCommand()]
+        return [
+            InitCommand(),
+            DoctorCommand(),
+        ]
 
 
 def main():
