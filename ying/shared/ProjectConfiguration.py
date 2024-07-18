@@ -26,6 +26,16 @@ class ProjectConfiguration:
         version: str,
         license: str,
     ):
+        """Creates a new project configuration file at the specified path
+
+        Args:
+            path (Path): The path to the project configuration file
+            project_type (ProjectType): The type of the new project
+            name (str): The project name
+            description (str): The project description
+            version (str): The project version
+            license (str): The project license
+        """
         # TODO: Create + reference the correct JSON schema file
         # TODO: Define basic scripts
 
