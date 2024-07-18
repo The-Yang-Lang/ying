@@ -1,3 +1,4 @@
+import logging
 from enum import Enum
 from json import dumps
 from pathlib import Path
@@ -41,9 +42,11 @@ class ProjectConfiguration:
         if project_type != ProjectType.Console:
             del result["entrypoint"]
 
-        json_file_contents = dumps(result, indent="\t")
+        json_file_contents = dumps(result, indent="\t") + "\n"
 
-        path.write_text(json_file_contents + "\n", encoding="utf8")
+        logging.debug("Writing to file %s: %s", path, json_file_contents)
+
+        path.write_text(json_file_contents, encoding="utf8")
 
     @staticmethod
     def find_in_path(path: Path) -> Optional[Path]:
