@@ -1,4 +1,6 @@
+import json
 import logging
+from dataclasses import dataclass
 from enum import Enum
 from json import dumps
 from pathlib import Path
@@ -16,41 +18,37 @@ class ProjectType(Enum):
 DEFAULT_PROJECT_CONFIGURATION_FILE_NAME = "ying.json"
 
 
+@dataclass
 class ProjectConfiguration:
-    @staticmethod
-    def create(
+    project_type: ProjectType
+    name: str
+    description: str
+    version: str
+    license: str
+    entrypoint: str
+    scripts: dict[str, str]
+
+    def write(
+        self,
         path: Path,
-        project_type: ProjectType,
-        name: str,
-        description: str,
-        version: str,
-        license: str,
     ):
-        """Creates a new project configuration file at the specified path
+        """Writes the current project configuration to the given path
 
         Args:
             path (Path): The path to the project configuration file
-            project_type (ProjectType): The type of the new project
-            name (str): The project name
-            description (str): The project description
-            version (str): The project version
-            license (str): The project license
         """
+
         # TODO: Create + reference the correct JSON schema file
-        # TODO: Define basic scripts
 
         result = {
-            "name": name,
-            "description": description,
-            "version": version,
-            "license": license,
-            "type": project_type.value,
-            "entrypoint": "./src/main.ya",
-            "scripts": {},
+            "name": self.name,
+            "description": self.description,
+            "version": self.version,
+            "license": self.license,
+            "type": self.project_type.value,
+            "entrypoint": self.entrypoint,
+            "scripts": self.scripts,
         }
-
-        if project_type != ProjectType.Console:
-            del result["entrypoint"]
 
         json_file_contents = dumps(result, indent="\t") + "\n"
 
@@ -75,7 +73,9 @@ class ProjectConfiguration:
                 parent / DEFAULT_PROJECT_CONFIGURATION_FILE_NAME
             )
 
-            if project_configuration_file_path.exists():
-                return parent
+            if not project_configuration_file_path.exists():
+                continue
+
+            return parent
 
         return None

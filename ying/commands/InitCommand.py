@@ -112,14 +112,19 @@ class InitCommand(CliCommand):
             project_directory / DEFAULT_PROJECT_CONFIGURATION_FILE_NAME
         )
 
-        ProjectConfiguration.create(
-            configuration_file_path,
-            project_type,
-            project_name,
-            project_description,
-            project_version,
-            project_license,
+        # TODO: Define basic scripts
+
+        project_configuration = ProjectConfiguration(
+            project_type=project_type,
+            name=project_name,
+            description=project_description,
+            version=project_version,
+            license=project_license,
+            entrypoint="./src/main.ya",
+            scripts={},
         )
+
+        project_configuration.write(configuration_file_path)
 
     @staticmethod
     def get_user_input(prompt: str, default_value: str) -> Optional[str]:
