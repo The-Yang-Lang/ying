@@ -86,7 +86,8 @@ class CliApplication(ABC):
             return
 
         command_find_result = CliApplication.get_command_by_args(
-            self.get_commands(), arguments
+            self.get_commands(),
+            arguments,
         )
 
         if command_find_result is None:
