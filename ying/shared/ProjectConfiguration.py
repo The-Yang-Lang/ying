@@ -13,7 +13,7 @@ class ProjectType(Enum):
         return self.value
 
 
-DEFAULT_PROJECT_CONFIGURATION_FILE_NAME = "yang.json"
+DEFAULT_PROJECT_CONFIGURATION_FILE_NAME = "ying.json"
 
 
 class ProjectConfiguration:
