@@ -47,6 +47,16 @@ class ProjectConfiguration:
 
     @staticmethod
     def find_in_path(path: Path) -> Optional[Path]:
+        """
+        Tries to find the Ying project configuration file in the given path or one of its parent directories.
+
+        Args:
+            path (Path): The starting path
+
+        Returns:
+            Optional[Path]: The found path or "None" if no directory contains the project configuration file.
+        """
+
         for parent in path.parents:
             project_configuration_file_path = (
                 parent / DEFAULT_PROJECT_CONFIGURATION_FILE_NAME
