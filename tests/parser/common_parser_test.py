@@ -78,3 +78,15 @@ def test_parse_false_as_boolean():
     result = CommonParser.boolean.parse("false")
 
     assert result == Success("false")
+
+
+def test_parse_a_whole_number_as_integer():
+    result = CommonParser.integer.parse("42")
+
+    assert result == Success("42")
+
+
+def test_should_not_parse_a_decimal_number_as_integer():
+    result = CommonParser.integer.parse("13.37")
+
+    assert result.failure().expected == ["end of source"]
