@@ -120,3 +120,15 @@ def test_should_not_parse_a_whole_number_as_float():
     result = CommonParser.float.parse("13")
 
     assert result.failure().expected == ["r'[0-9][0-9_]*\\.[0-9][0-9_]*'"]
+
+
+def test_should_parse_strict_equal_operator():
+    result = CommonParser.strict_equal.parse("==")
+
+    assert result == Success("==")
+
+
+def test_should_parse_strict_unequal_operator():
+    result = CommonParser.strict_unequal.parse("!=")
+
+    assert result == Success("!=")

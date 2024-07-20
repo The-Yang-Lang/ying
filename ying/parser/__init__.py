@@ -1,6 +1,7 @@
 from parsita import lit, ParserContext, reg
 
 from ying.ast.comments import LineComment, MultiLineComment
+from ying.shared.utils import join_parser_parts
 
 
 class CommentParser(ParserContext, whitespace=r"\s*"):
@@ -54,3 +55,14 @@ class CommonParser(ParserContext, whitespace=r"\s*"):
     boolean = lit("true") | lit("false")
     integer = reg(r"[0-9][0-9_]*")
     float = reg(r"[0-9][0-9_]*\.[0-9][0-9_]*")
+
+    # Comparison operators
+
+    strict_equal = (
+        SpecialCharacterParser.equal_sign & SpecialCharacterParser.equal_sign
+        > join_parser_parts
+    )
+
+    strict_unequal = (
+        SpecialCharacterParser.exclamation_mark & SpecialCharacterParser.equal_sign
+    ) > join_parser_parts
