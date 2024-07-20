@@ -36,3 +36,9 @@ def test_type_keyword():
     result = KeywordParser.kw_type.parse("type")
 
     assert result == Success("type")
+
+
+def test_as_keyword():
+    result = KeywordParser.kw_as.parse("as")
+
+    assert result == Success("as")
