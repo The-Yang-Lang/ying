@@ -29,6 +29,8 @@ class SpecialCharacterParser(ParserContext, whitespace=r"\s*"):
     angel_open = lit("<")
     angel_close = lit(">")
 
+    dot = lit(".")
+
 
 class CommonParser(ParserContext, whitespace=r"\s*"):
     identifier = reg(r"[a-zA-Z_]*")

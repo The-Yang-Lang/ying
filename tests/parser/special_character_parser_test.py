@@ -36,3 +36,9 @@ def test_angel_close():
     result = SpecialCharacterParser.angel_close.parse(">")
 
     assert result == Success(">")
+
+
+def test_dot():
+    result = SpecialCharacterParser.dot.parse(".")
+
+    assert result == Success(".")
