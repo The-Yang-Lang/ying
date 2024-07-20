@@ -66,3 +66,15 @@ def test_char_literal_with_more_then_one_character():
     result = CommonParser.char.parse("'ab'")
 
     assert result.failure().expected == ["r''([a-zA-Z0-9]|\\\\[a-zA-Z])''"]
+
+
+def test_parse_true_as_boolean():
+    result = CommonParser.boolean.parse("true")
+
+    assert result == Success("true")
+
+
+def test_parse_false_as_boolean():
+    result = CommonParser.boolean.parse("false")
+
+    assert result == Success("false")
