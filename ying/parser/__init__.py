@@ -89,8 +89,8 @@ class StatementParser(ParserContext, whitespace=r"\s*"):
     import_statement = (
         KeywordParser.kw_import
         >> SpecialCharacterParser.curly_open
-        >> repsep(importable_identifiers, SpecialCharacterParser.comma)
+        >> opt(repsep(importable_identifiers, SpecialCharacterParser.comma))
         << SpecialCharacterParser.curly_close
         << KeywordParser.kw_from
         & CommonParser.string << SpecialCharacterParser.semicolon
-    ) > splat(ImportStatement)
+    ) > splat(ImportStatement.parse)
