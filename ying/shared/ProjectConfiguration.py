@@ -79,3 +79,37 @@ class ProjectConfiguration:
             return parent
 
         return None
+
+    @staticmethod
+    def read_from_file(path: Path) -> Optional["ProjectConfiguration"]:
+        """Tries to read the project configuration file from the given path.
+
+        Returns:
+            Optional["ProjectConfiguration"]: The read configuration or none if an error occurred.
+                                              Errors could be:
+                                              - the user does not have permissions to read the file
+                                              - the file contains invalid JSON
+                                              - the project type could not be determined
+        """
+
+        if not path.exists():
+            return None
+
+        if not path.is_file():
+            return None
+
+        try:
+            raw_file_contents = path.read_text(encoding="utf8")
+            parsed_file_contents = json.loads(raw_file_contents)
+
+            return ProjectConfiguration(
+                project_type=ProjectType(parsed_file_contents.type),
+                name=parsed_file_contents.name,
+                description=parsed_file_contents.description,
+                version=parsed_file_contents.version,
+                license=parsed_file_contents.license,
+                entrypoint=parsed_file_contents.entrypoint,
+                scripts=parsed_file_contents.scripts,
+            )
+        except:
+            return None
