@@ -18,6 +18,7 @@ class KeywordParser(ParserContext, whitespace=r"\s*"):
     kw_export = lit("export")
     kw_struct = lit("struct")
     kw_class = lit("class")
+    kw_type = lit("type")
 
 
 class SpecialCharacterParser(ParserContext, whitespace=r"\s*"):

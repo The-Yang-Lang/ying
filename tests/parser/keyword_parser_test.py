@@ -30,3 +30,9 @@ def test_class_keyword():
     result = KeywordParser.kw_class.parse("class")
 
     assert result == Success("class")
+
+
+def test_type_keyword():
+    result = KeywordParser.kw_type.parse("type")
+
+    assert result == Success("type")
