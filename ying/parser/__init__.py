@@ -57,7 +57,7 @@ class SpecialCharacterParser(ParserContext, whitespace=r"\s*"):
 
 
 class CommonParser(ParserContext, whitespace=r"\s*"):
-    identifier = reg(r"[a-zA-Z_]*")
+    identifier = reg(r"[a-zA-Z_]+")
     string = reg(r"\"([^\"\\]|\\[\s\S])*\"")
     char = reg(r"'([a-zA-Z0-9]|\\[a-zA-Z])'")
     boolean = lit("true") | lit("false")

@@ -2,31 +2,38 @@ from parsita import Success
 from ying.parser import CommonParser
 
 
-def test_variable_identifier_with_no_underscores():
+
+def test_identifier_requires_at_least_one_character():
+    result = CommonParser.identifier.parse("")
+
+    assert result.failure().expected == ["r'[a-zA-Z_]+'"]
+
+
+def test_identifier_with_no_underscores():
     result = CommonParser.identifier.parse("test")
 
     assert result == Success("test")
 
 
-def test_variable_identifier_with_leading_underscore():
+def test_identifier_with_leading_underscore():
     result = CommonParser.identifier.parse("_test")
 
     assert result == Success("_test")
 
 
-def test_variable_identifier_with_underscores():
+def test_identifier_with_underscores():
     result = CommonParser.identifier.parse("unit_test")
 
     assert result == Success("unit_test")
 
 
-def test_variable_identifier_with_trailing_single_underscore():
+def test_identifier_with_trailing_single_underscore():
     result = CommonParser.identifier.parse("unit_test_")
 
     assert result == Success("unit_test_")
 
 
-def test_variable_identifier_with_trailing_double_underscore():
+def test_identifier_with_trailing_double_underscore():
     result = CommonParser.identifier.parse("unit_test__")
 
     assert result == Success("unit_test__")
