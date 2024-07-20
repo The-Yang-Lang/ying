@@ -1,6 +1,7 @@
 from parsita import Success
 from ying.parser import CommonParser
 
+# region identifier
 
 
 def test_identifier_requires_at_least_one_character():
@@ -39,6 +40,11 @@ def test_identifier_with_trailing_double_underscore():
     assert result == Success("unit_test__")
 
 
+# endregion
+
+# region string literal
+
+
 def test_string_literal_with_no_escaped_character():
     result = CommonParser.string.parse('"unit test"')
 
@@ -55,6 +61,11 @@ def test_string_literal_with_escaped_quote():
     result = CommonParser.string.parse('"unit \\" test"')
 
     assert result == Success('"unit \\" test"')
+
+
+# endregion
+
+# region char literal
 
 
 def test_char_literal_with_no_escaped_character():
@@ -75,6 +86,11 @@ def test_char_literal_with_more_then_one_character():
     assert result.failure().expected == ["r''([a-zA-Z0-9]|\\\\[a-zA-Z])''"]
 
 
+# endregion
+
+# region boolean
+
+
 def test_parse_true_as_boolean():
     result = CommonParser.boolean.parse("true")
 
@@ -85,6 +101,11 @@ def test_parse_false_as_boolean():
     result = CommonParser.boolean.parse("false")
 
     assert result == Success("false")
+
+
+# endregion
+
+# region integer
 
 
 def test_parse_a_whole_number_as_integer():
@@ -103,6 +124,11 @@ def test_should_not_parse_a_decimal_number_as_integer():
     result = CommonParser.integer.parse("13.37")
 
     assert result.failure().expected == ["end of source"]
+
+
+# endregion
+
+# region float / decimal number
 
 
 def test_parse_a_decimal_number_as_float():
@@ -129,6 +155,11 @@ def test_should_not_parse_a_whole_number_as_float():
     assert result.failure().expected == ["r'[0-9][0-9_]*\\.[0-9][0-9_]*'"]
 
 
+# endregion
+
+# region operators
+
+
 def test_should_parse_strict_equal_operator():
     result = CommonParser.strict_equal.parse("==")
 
@@ -139,3 +170,6 @@ def test_should_parse_strict_unequal_operator():
     result = CommonParser.strict_unequal.parse("!=")
 
     assert result == Success("!=")
+
+
+# endregion
