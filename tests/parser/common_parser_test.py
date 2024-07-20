@@ -96,3 +96,27 @@ def test_should_not_parse_a_decimal_number_as_integer():
     result = CommonParser.integer.parse("13.37")
 
     assert result.failure().expected == ["end of source"]
+
+
+def test_parse_a_decimal_number_as_float():
+    result = CommonParser.float.parse("13.37")
+
+    assert result == Success("13.37")
+
+
+def test_parse_a_decimal_number_with_underscores_in_the_integer_part_as_float():
+    result = CommonParser.float.parse("1_000.00")
+
+    assert result == Success("1_000.00")
+
+
+def test_parse_a_decimal_number_with_underscores_in_the_fraction_part_as_float():
+    result = CommonParser.float.parse("1000.0_0")
+
+    assert result == Success("1000.0_0")
+
+
+def test_should_not_parse_a_whole_number_as_float():
+    result = CommonParser.float.parse("13")
+
+    assert result.failure().expected == ["r'[0-9][0-9_]*\\.[0-9][0-9_]*'"]
