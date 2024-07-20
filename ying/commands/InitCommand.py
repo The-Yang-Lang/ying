@@ -126,6 +126,31 @@ class InitCommand(CliCommand):
 
         project_configuration.write(configuration_file_path)
 
+        main_file_contents = ""
+
+        match project_type:
+            case ProjectType.Console:
+                main_file_contents = r"""import { stdout } from "package:std/system";
+                
+export function main(program_arguments: Array<string>): int {
+    stdout.write_line("Hello world!");
+
+    return 0;
+}
+"""
+            case ProjectType.Library:
+                main_file_contents = "export function my_function(): void {\n}\n"
+
+        main_file_path = project_directory / "src" / "main.ya"
+
+        if not main_file_path.exists():
+            parent_directory = main_file_path.parent
+
+            if not parent_directory.exists():
+                parent_directory.mkdir(parents=True)
+
+            main_file_path.write_text(main_file_contents, encoding="utf8")
+
     @staticmethod
     def get_user_input(prompt: str, default_value: str) -> Optional[str]:
         try:
