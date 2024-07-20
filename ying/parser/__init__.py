@@ -1,6 +1,12 @@
-from parsita import lit, ParserContext, reg
+from parsita import lit, ParserContext, reg, repsep
+from parsita.util import splat
 
 from ying.ast.comments import LineComment, MultiLineComment
+from ying.ast.statements import (
+    ImportedAliasedIdentifier,
+    ImportedIdentifier,
+    ImportStatement,
+)
 from ying.shared.utils import join_parser_parts
 
 
@@ -68,3 +74,23 @@ class CommonParser(ParserContext, whitespace=r"\s*"):
     strict_unequal = (
         SpecialCharacterParser.exclamation_mark & SpecialCharacterParser.equal_sign
     ) > join_parser_parts
+
+
+class StatementParser(ParserContext, whitespace=r"\s*"):
+    imported_identifier = CommonParser.identifier > ImportedIdentifier
+
+    imported_aliased_identifier = (
+        CommonParser.identifier << KeywordParser.kw_as & CommonParser.identifier
+        > splat(ImportedAliasedIdentifier)
+    )
+
+    importable_identifiers = imported_aliased_identifier | imported_identifier
+
+    import_statement = (
+        KeywordParser.kw_import
+        >> SpecialCharacterParser.curly_open
+        >> repsep(importable_identifiers, SpecialCharacterParser.comma)
+        << SpecialCharacterParser.curly_close
+        << KeywordParser.kw_from
+        & CommonParser.string << SpecialCharacterParser.semicolon
+    ) > splat(ImportStatement)
