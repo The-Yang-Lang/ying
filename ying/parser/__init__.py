@@ -35,4 +35,4 @@ class CommonParser(ParserContext, whitespace=r"\s*"):
     string = reg(r"\"([^\"\\]|\\[\s\S])*\"")
     char = reg(r"'([a-zA-Z0-9]|\\[a-zA-Z])'")
     boolean = lit("true") | lit("false")
-    integer = reg(r"[0-9]+")
+    integer = reg(r"[0-9][0-9_]*")

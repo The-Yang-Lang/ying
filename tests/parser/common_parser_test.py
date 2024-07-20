@@ -86,6 +86,12 @@ def test_parse_a_whole_number_as_integer():
     assert result == Success("42")
 
 
+def test_parse_a_whole_number_with_underscores_as_integer():
+    result = CommonParser.integer.parse("1_000")
+
+    assert result == Success("1_000")
+
+
 def test_should_not_parse_a_decimal_number_as_integer():
     result = CommonParser.integer.parse("13.37")
 
