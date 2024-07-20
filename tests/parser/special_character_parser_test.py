@@ -66,3 +66,57 @@ def test_slash():
     result = SpecialCharacterParser.slash.parse("/")
 
     assert result == Success("/")
+
+
+def test_percent():
+    result = SpecialCharacterParser.percent.parse("%")
+
+    assert result == Success("%")
+
+
+def test_colon():
+    result = SpecialCharacterParser.colon.parse(":")
+
+    assert result == Success(":")
+
+
+def test_semicolon():
+    result = SpecialCharacterParser.semicolon.parse(";")
+
+    assert result == Success(";")
+
+
+def test_comma():
+    result = SpecialCharacterParser.comma.parse(",")
+
+    assert result == Success(",")
+
+
+def test_equal_sign():
+    result = SpecialCharacterParser.equal_sign.parse("=")
+
+    assert result == Success("=")
+
+
+def test_question_mark():
+    result = SpecialCharacterParser.question_mark.parse("?")
+
+    assert result == Success("?")
+
+
+def test_exclamation_mark():
+    result = SpecialCharacterParser.exclamation_mark.parse("!")
+
+    assert result == Success("!")
+
+
+def test_ampersand():
+    result = SpecialCharacterParser.ampersand.parse("&")
+
+    assert result == Success("&")
+
+
+def test_pipe():
+    result = SpecialCharacterParser.pipe.parse("|")
+
+    assert result == Success("|")

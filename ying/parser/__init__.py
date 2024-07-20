@@ -35,6 +35,16 @@ class SpecialCharacterParser(ParserContext, whitespace=r"\s*"):
     minus = lit("-")
     asterisk = lit("*")
     slash = lit("/")
+    percent = lit("%")
+
+    colon = lit(":")
+    semicolon = lit(";")
+    comma = lit(",")
+    equal_sign = lit("=")
+    question_mark = lit("?")
+    exclamation_mark = lit("!")
+    ampersand = lit("&")
+    pipe = lit("|")
 
 
 class CommonParser(ParserContext, whitespace=r"\s*"):
