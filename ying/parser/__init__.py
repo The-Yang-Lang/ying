@@ -31,6 +31,11 @@ class SpecialCharacterParser(ParserContext, whitespace=r"\s*"):
 
     dot = lit(".")
 
+    plus = lit("+")
+    minus = lit("-")
+    asterisk = lit("*")
+    slash = lit("/")
+
 
 class CommonParser(ParserContext, whitespace=r"\s*"):
     identifier = reg(r"[a-zA-Z_]*")

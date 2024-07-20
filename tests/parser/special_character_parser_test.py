@@ -42,3 +42,27 @@ def test_dot():
     result = SpecialCharacterParser.dot.parse(".")
 
     assert result == Success(".")
+
+
+def test_plus():
+    result = SpecialCharacterParser.plus.parse("+")
+
+    assert result == Success("+")
+
+
+def test_minus():
+    result = SpecialCharacterParser.minus.parse("-")
+
+    assert result == Success("-")
+
+
+def test_asterisk():
+    result = SpecialCharacterParser.asterisk.parse("*")
+
+    assert result == Success("*")
+
+
+def test_slash():
+    result = SpecialCharacterParser.slash.parse("/")
+
+    assert result == Success("/")
