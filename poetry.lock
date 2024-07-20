@@ -211,6 +211,20 @@ files = [
 ]
 
 [[package]]
+name = "parsita"
+version = "2.1.1"
+description = "Parser combinator library for Python"
+optional = false
+python-versions = ">=3.8,<4.0"
+files = [
+    {file = "parsita-2.1.1-py3-none-any.whl", hash = "sha256:169f12853733d51d23d6ea0243502d9821b8bedb71b35879c18a6dc4cb7ebba4"},
+    {file = "parsita-2.1.1.tar.gz", hash = "sha256:ebef0f26ee8c3ce6d7e217d98f0a802e6df7825004b2e7b373a43aa6808ad4f7"},
+]
+
+[package.dependencies]
+returns = ">=0.20,<0.23"
+
+[[package]]
 name = "pathspec"
 version = "0.12.1"
 description = "Utility library for gitignore style pattern matching of file paths."
@@ -364,6 +378,23 @@ files = [
 ]
 
 [[package]]
+name = "returns"
+version = "0.22.0"
+description = "Make your functions return something meaningful, typed, and safe!"
+optional = false
+python-versions = ">=3.8.1,<4.0"
+files = [
+    {file = "returns-0.22.0-py3-none-any.whl", hash = "sha256:d38d6324692eeb29ec4bd698e1b859ec0ac79fb2c17bf0d302f92c8c42ef35c1"},
+    {file = "returns-0.22.0.tar.gz", hash = "sha256:c7bd85bd1e0041b44fe46c7e2f68fcc76a0546142c876229e395174bcd674f37"},
+]
+
+[package.dependencies]
+typing-extensions = ">=4.0,<5.0"
+
+[package.extras]
+compatible-mypy = ["mypy (>=1.5,<1.6)"]
+
+[[package]]
 name = "rich"
 version = "13.7.1"
 description = "Render rich text, tables, progress bars, syntax highlighting, markdown and more to the terminal"
@@ -497,4 +528,4 @@ trailrunner = ">=1.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "24fc72bd0613d690a6d517f2699b79f7c96c60c97bf8edb563215b6471137168"
+content-hash = "85c3e720cf7d722f33964c348ef46b71deebb5244075cb059349b1f8f81e8b30"

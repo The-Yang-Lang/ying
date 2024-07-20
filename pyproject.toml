@@ -12,6 +12,7 @@ ying = "ying:main"
 [tool.poetry.dependencies]
 python = "^3.12"
 rich = "^13.7.1"
+parsita = "^2.1.1"
 
 [tool.poetry.group.formatting.dependencies]
 ufmt = "^2.7.0"
