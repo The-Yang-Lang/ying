@@ -318,6 +318,20 @@ pytest = ">=6.2.5"
 dev = ["pre-commit", "pytest-asyncio", "tox"]
 
 [[package]]
+name = "pytest-picked"
+version = "0.5.0"
+description = "Run the tests related to the changed files"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "pytest-picked-0.5.0.tar.gz", hash = "sha256:b39cd43b1f5e6efd2fc896f318e23c2c77effde8dd6efa58653a2940d8a384d9"},
+    {file = "pytest_picked-0.5.0-py3-none-any.whl", hash = "sha256:6d22771a857a2cd8691fc0802f3e1371fe4063fa1ecbd216d9584bbe089fcfd3"},
+]
+
+[package.dependencies]
+pytest = ">=3.7.0"
+
+[[package]]
 name = "pyyaml"
 version = "6.0.1"
 description = "YAML parser and emitter for Python"
@@ -528,4 +542,4 @@ trailrunner = ">=1.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "85c3e720cf7d722f33964c348ef46b71deebb5244075cb059349b1f8f81e8b30"
+content-hash = "c38e4104b5eb6f1b0aaa62c725be4290251503654fce8c5a94821cc4d937c435"

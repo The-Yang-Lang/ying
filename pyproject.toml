@@ -19,6 +19,7 @@ ufmt = "^2.7.0"
 
 [tool.poetry.group.test.dependencies]
 pytest = "^8.0.0"
+pytest-picked = "^0.5.0"
 pytest-mock = "*"
 
 [build-system]
