@@ -1,25 +1,26 @@
 import logging
 import sys
 from os import getenv
+from typing import Optional
 
 from rich.logging import RichHandler
 
-from ying.cli import CliApplication
+from ying.cli import CliApplication, CliCommand
 from ying.commands.DoctorCommand import DoctorCommand
 from ying.commands.InitCommand import InitCommand
 
 
 class Application(CliApplication):
-    def get_name(self):
+    def get_name(self) -> str:
         return "ying"
 
-    def get_version(self):
+    def get_version(self) -> Optional[str]:
         return "0.0.0"
 
-    def get_description(self):
+    def get_description(self) -> Optional[str]:
         return None
 
-    def get_commands(self):
+    def get_commands(self) -> list[CliCommand]:
         return [
             InitCommand(),
             DoctorCommand(),
