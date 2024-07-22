@@ -1,7 +1,8 @@
-from parsita import lit, opt, ParserContext, reg, repsep
+from parsita import fwd, lit, opt, ParserContext, reg, repsep
 from parsita.util import splat
 
 from ying.ast.comments import LineComment, MultiLineComment
+from ying.ast.data_types import DataType, IntersectionDataType, UnionDataType
 from ying.ast.statements import (
     ImportedAliasedIdentifier,
     ImportedIdentifier,
@@ -118,3 +119,40 @@ class StatementParser(ParserContext, whitespace=r"\s*"):
         )
         << SpecialCharacterParser.curly_close
     ) > splat(StructStatement.parse)
+
+
+class DataTypeParser(ParserContext, whitespace=r"\s*"):
+    data_type = fwd()
+
+    raw_data_type = CommonParser.identifier > DataType
+
+    parenthesized_data_type = (
+        SpecialCharacterParser.parenthesis_open
+        >> data_type
+        << SpecialCharacterParser.parenthesis_close
+    )
+
+    intersection_data_type = (
+        repsep(
+            raw_data_type | parenthesized_data_type,
+            SpecialCharacterParser.ampersand,
+            min=2,
+        )
+        > IntersectionDataType
+    )
+
+    union_data_type = (
+        repsep(
+            raw_data_type | intersection_data_type | parenthesized_data_type,
+            SpecialCharacterParser.pipe,
+            min=2,
+        )
+        > UnionDataType
+    )
+
+    data_type.define(
+        parenthesized_data_type
+        | intersection_data_type
+        | union_data_type
+        | raw_data_type
+    )
