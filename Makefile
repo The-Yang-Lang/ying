@@ -17,7 +17,7 @@ watch:
 
 .PHONY: test
 test:
-	${POETRY_EXECUTABLE} run pytest -v --picked
+	${POETRY_EXECUTABLE} run pytest -v
 
 .PHONY: watch-tests
 watch-tests:
