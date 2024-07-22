@@ -1,12 +1,15 @@
-from parsita import fwd, ParserContext, repsep
+from parsita import fwd, opt, ParserContext, repsep
+from parsita.util import splat
 
 from ying.ast.data_types import (
     DataType,
     IntersectionDataType,
     ParenthesizedDataType,
+    TypeArgument,
     UnionDataType,
 )
 from ying.parser.common import CommonParser
+from ying.parser.keyword import KeywordParser
 from ying.parser.special_character import SpecialCharacterParser
 
 
@@ -45,3 +48,9 @@ class DataTypeParser(ParserContext, whitespace=r"\s*"):
         | union_data_type
         | raw_data_type
     )
+
+    type_argument = (
+        CommonParser.identifier
+        & opt(KeywordParser.kw_extends >> raw_data_type)
+        & opt(KeywordParser.kw_implements >> data_type)
+    ) > splat(TypeArgument.parse)
