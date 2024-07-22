@@ -51,6 +51,9 @@ def test_parse_import_statement_with_aliased_identifiers():
     )
 
 
+# region structs
+
+
 def test_parse_struct_property():
     result = StatementParser.struct_property.parse("username: string")
 
@@ -141,3 +144,6 @@ def test_parse_struct_with_multiple_properties():
             ],
         )
     )
+
+
+# endregion
