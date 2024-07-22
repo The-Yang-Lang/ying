@@ -7,6 +7,7 @@ from ying.ast.statements import (
     ImportStatement,
     StructProperty,
     StructStatement,
+    TypeStatement,
 )
 from ying.parser.common import CommonParser
 from ying.parser.data_type import DataTypeParser
@@ -52,3 +53,10 @@ class StatementParser(ParserContext, whitespace=r"\s*"):
         )
         << SpecialCharacterParser.curly_close
     ) > splat(StructStatement.parse)
+
+    type_statement = (
+        KeywordParser.kw_type
+        >> CommonParser.identifier
+        << SpecialCharacterParser.equal_sign
+        & DataTypeParser.data_type << SpecialCharacterParser.semicolon
+    ) > splat(TypeStatement)

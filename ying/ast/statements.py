@@ -1,6 +1,8 @@
 from dataclasses import dataclass
 from typing import Union
 
+from ying.ast.data_types import ComplexDataType
+
 
 @dataclass
 class ImportedIdentifier:
@@ -57,3 +59,10 @@ class StructStatement:
             struct_properties = properties[0]
 
         return StructStatement(name, struct_type_variables, struct_properties)
+
+
+@dataclass
+class TypeStatement:
+    name: str
+
+    data_type: ComplexDataType

@@ -1,12 +1,18 @@
 from parsita import Success
 
-from ying.ast.data_types import DataType, TypeArgument
+from ying.ast.data_types import (
+    DataType,
+    IntersectionDataType,
+    TypeArgument,
+    UnionDataType,
+)
 from ying.ast.statements import (
     ImportedAliasedIdentifier,
     ImportedIdentifier,
     ImportStatement,
     StructProperty,
     StructStatement,
+    TypeStatement,
 )
 from ying.parser.statement import StatementParser
 
@@ -146,6 +152,54 @@ def test_parse_struct_with_multiple_properties():
                 StructProperty("username", DataType("string", [])),
                 StructProperty("email", DataType("string", [])),
             ],
+        )
+    )
+
+
+# endregion
+
+# region type statement
+
+
+def test_type_statement_with_simple_data_type():
+    result = StatementParser.type_statement.parse("type Id = int;")
+
+    assert result == Success(
+        TypeStatement(
+            "Id",
+            DataType("int", []),
+        )
+    )
+
+
+def test_type_statement_with_intersection_data_type():
+    result = StatementParser.type_statement.parse("type Id = string & int;")
+
+    assert result == Success(
+        TypeStatement(
+            "Id",
+            IntersectionDataType(
+                [
+                    DataType("string", []),
+                    DataType("int", []),
+                ]
+            ),
+        )
+    )
+
+
+def test_type_statement_with_union_data_type():
+    result = StatementParser.type_statement.parse("type Id = string | int;")
+
+    assert result == Success(
+        TypeStatement(
+            "Id",
+            UnionDataType(
+                [
+                    DataType("string", []),
+                    DataType("int", []),
+                ]
+            ),
         )
     )
 
