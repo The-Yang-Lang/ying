@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Optional, Union
+from typing import Optional, TypeAlias, Union
 
 
 @dataclass
@@ -41,32 +41,23 @@ class ParenthesizedDataType:
     ]
 
 
+ComplexDataType: TypeAlias = Union[
+    DataType, UnionDataType, IntersectionDataType, ParenthesizedDataType
+]
+
+
 @dataclass
 class TypeArgument:
     name: str
 
     class_constraint: Optional[DataType]
 
-    interface_constraint: Optional[
-        Union[
-            DataType,
-            UnionDataType,
-            IntersectionDataType,
-            ParenthesizedDataType,
-        ]
-    ]
+    interface_constraint: Optional[ComplexDataType]
 
     def parse(
         name: str,
         possible_class_constraint: Optional[DataType],
-        possible_interface_constraint: Optional[
-            Union[
-                DataType,
-                UnionDataType,
-                IntersectionDataType,
-                ParenthesizedDataType,
-            ]
-        ],
+        possible_interface_constraint: Optional[ComplexDataType],
     ) -> TypeArgument:
         class_constraint = None
         interface_constraint = None
