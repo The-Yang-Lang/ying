@@ -1,5 +1,10 @@
 from parsita import Success
-from ying.ast.data_types import DataType, IntersectionDataType, UnionDataType
+from ying.ast.data_types import (
+    DataType,
+    IntersectionDataType,
+    ParenthesizedDataType,
+    UnionDataType,
+)
 from ying.parser import DataTypeParser
 
 
@@ -38,18 +43,34 @@ def test_intersection_data_type():
 def test_parenthesized_single_data_type():
     result = DataTypeParser.parenthesized_data_type.parse("(string)")
 
-    assert result == Success(DataType("string"))
+    assert result == Success(
+        ParenthesizedDataType(DataType("string")),
+    )
+
+
+def test_parenthesized_contains_parenthesized_data_type():
+    result = DataTypeParser.parenthesized_data_type.parse("((string))")
+
+    assert result == Success(
+        ParenthesizedDataType(
+            ParenthesizedDataType(
+                DataType("string"),
+            ),
+        ),
+    )
 
 
 def test_parenthesized_intersection_data_type():
     result = DataTypeParser.parenthesized_data_type.parse("(string & int)")
 
     assert result == Success(
-        IntersectionDataType(
-            [
-                DataType("string"),
-                DataType("int"),
-            ]
+        ParenthesizedDataType(
+            IntersectionDataType(
+                [
+                    DataType("string"),
+                    DataType("int"),
+                ]
+            ),
         )
     )
 
@@ -58,11 +79,13 @@ def test_parenthesized_union_data_type():
     result = DataTypeParser.parenthesized_data_type.parse("(string | int)")
 
     assert result == Success(
-        UnionDataType(
-            [
-                DataType("string"),
-                DataType("int"),
-            ]
+        ParenthesizedDataType(
+            UnionDataType(
+                [
+                    DataType("string"),
+                    DataType("int"),
+                ]
+            ),
         )
     )
 
@@ -101,11 +124,13 @@ def test_second_complex_data_type():
                         DataType("char"),
                     ]
                 ),
-                IntersectionDataType(
-                    [
-                        DataType("User"),
-                        DataType("Account"),
-                    ]
+                ParenthesizedDataType(
+                    IntersectionDataType(
+                        [
+                            DataType("User"),
+                            DataType("Account"),
+                        ]
+                    ),
                 ),
                 DataType("float"),
             ]

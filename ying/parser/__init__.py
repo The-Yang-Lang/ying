@@ -2,7 +2,12 @@ from parsita import fwd, lit, opt, ParserContext, reg, repsep
 from parsita.util import splat
 
 from ying.ast.comments import LineComment, MultiLineComment
-from ying.ast.data_types import DataType, IntersectionDataType, UnionDataType
+from ying.ast.data_types import (
+    DataType,
+    IntersectionDataType,
+    ParenthesizedDataType,
+    UnionDataType,
+)
 from ying.ast.statements import (
     ImportedAliasedIdentifier,
     ImportedIdentifier,
@@ -130,7 +135,7 @@ class DataTypeParser(ParserContext, whitespace=r"\s*"):
         SpecialCharacterParser.parenthesis_open
         >> data_type
         << SpecialCharacterParser.parenthesis_close
-    )
+    ) > ParenthesizedDataType
 
     intersection_data_type = (
         repsep(
