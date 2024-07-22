@@ -32,6 +32,12 @@ def test_class_keyword():
     assert result == Success("class")
 
 
+def test_interface_keyword():
+    result = KeywordParser.kw_interface.parse("interface")
+
+    assert result == Success("interface")
+
+
 def test_type_keyword():
     result = KeywordParser.kw_type.parse("type")
 

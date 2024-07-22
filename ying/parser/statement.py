@@ -6,6 +6,9 @@ from ying.ast.statements import (
     ImportedAliasedIdentifier,
     ImportedIdentifier,
     ImportStatement,
+    InterfaceMember,
+    InterfaceStatement,
+    Parameter,
     StructProperty,
     StructStatement,
     TypeStatement,
@@ -62,7 +65,42 @@ class StatementParser(ParserContext, whitespace=r"\s*"):
         & DataTypeParser.data_type << SpecialCharacterParser.semicolon
     ) > splat(TypeStatement)
 
-    exportable_statements = struct_statement | type_statement
+    parameter = (
+        CommonParser.identifier << SpecialCharacterParser.colon
+        & DataTypeParser.data_type
+        > splat(Parameter)
+    )
+
+    interface_member = (
+        opt(KeywordParser.kw_static)
+        & CommonParser.identifier
+        & opt(
+            SpecialCharacterParser.angel_open
+            >> repsep(DataTypeParser.type_argument, SpecialCharacterParser.comma)
+            << SpecialCharacterParser.angel_close
+        )
+        << SpecialCharacterParser.parenthesis_open
+        & opt(
+            repsep(parameter, SpecialCharacterParser.comma)
+            << opt(SpecialCharacterParser.comma)
+        )
+        << SpecialCharacterParser.parenthesis_close
+        << SpecialCharacterParser.colon
+        & DataTypeParser.data_type
+    ) > splat(InterfaceMember.parse)
+
+    interface_statement = KeywordParser.kw_interface >> CommonParser.identifier & opt(
+        SpecialCharacterParser.angel_open
+        >> repsep(DataTypeParser.type_argument, SpecialCharacterParser.comma)
+        << SpecialCharacterParser.angel_close
+    ) << SpecialCharacterParser.curly_open & opt(
+        repsep(interface_member, SpecialCharacterParser.semicolon)
+        << SpecialCharacterParser.semicolon
+    ) << SpecialCharacterParser.curly_close > splat(
+        InterfaceStatement.parse
+    )
+
+    exportable_statements = struct_statement | type_statement | interface_statement
 
     export_statement = (
         KeywordParser.kw_export >> exportable_statements > ExportStatement

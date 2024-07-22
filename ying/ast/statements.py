@@ -1,7 +1,9 @@
+from __future__ import annotations
+
 from dataclasses import dataclass
 from typing import Union
 
-from ying.ast.data_types import ComplexDataType
+from ying.ast.data_types import ComplexDataType, TypeArgument
 
 
 @dataclass
@@ -66,6 +68,76 @@ class TypeStatement:
     name: str
 
     data_type: ComplexDataType
+
+
+@dataclass
+class Parameter:
+    name: str
+
+    data_type: ComplexDataType
+
+
+@dataclass
+class InterfaceMember:
+    name: str
+    type_arguments: list[TypeArgument]
+    parameters: list[Parameter]
+    return_type: ComplexDataType
+    is_static: bool
+
+    @staticmethod
+    def parse(
+        possible_is_static: list[str],
+        name: str,
+        possible_type_arguments: list[list[TypeArgument]],
+        possible_parameters: list[list[Parameter]],
+        return_type: ComplexDataType,
+    ) -> InterfaceMember:
+        is_static = True if len(possible_is_static) > 0 else False
+        type_arguments = []
+        parameters = []
+
+        if len(possible_type_arguments) > 0:
+            type_arguments = possible_type_arguments[0]
+
+        if len(possible_parameters) > 0:
+            parameters = possible_parameters[0]
+
+        return InterfaceMember(
+            name,
+            type_arguments,
+            parameters,
+            return_type,
+            is_static,
+        )
+
+
+@dataclass
+class InterfaceStatement:
+    name: str
+    type_arguments: list[TypeArgument]
+    members: list[InterfaceMember]
+
+    @staticmethod
+    def parse(
+        name: str,
+        possible_type_arguments: list[list[TypeArgument]],
+        possible_interface_members: list[list[InterfaceMember]],
+    ) -> InterfaceStatement:
+        type_arguments = []
+        interface_members = []
+
+        if len(possible_type_arguments) > 0:
+            type_arguments = possible_type_arguments[0]
+
+        if len(possible_interface_members) > 0:
+            interface_members = possible_interface_members[0]
+
+        return InterfaceStatement(
+            name,
+            type_arguments,
+            interface_members,
+        )
 
 
 @dataclass
