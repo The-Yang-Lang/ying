@@ -1,4 +1,4 @@
-from parsita import lit, ParserContext, reg, repsep
+from parsita import lit, opt, ParserContext, reg, repsep
 from parsita.util import splat
 
 from ying.ast.comments import LineComment, MultiLineComment
@@ -6,6 +6,8 @@ from ying.ast.statements import (
     ImportedAliasedIdentifier,
     ImportedIdentifier,
     ImportStatement,
+    StructProperty,
+    StructStatement,
 )
 from ying.shared.utils import join_parser_parts
 
@@ -26,6 +28,8 @@ class KeywordParser(ParserContext, whitespace=r"\s*"):
     kw_class = lit("class")
     kw_type = lit("type")
     kw_as = lit("as")
+    kw_extends = lit("extends")
+    kw_implements = lit("implements")
 
 
 class SpecialCharacterParser(ParserContext, whitespace=r"\s*"):
@@ -94,3 +98,23 @@ class StatementParser(ParserContext, whitespace=r"\s*"):
         << KeywordParser.kw_from
         & CommonParser.string << SpecialCharacterParser.semicolon
     ) > splat(ImportStatement.parse)
+
+    struct_property = (
+        CommonParser.identifier << SpecialCharacterParser.colon
+        & CommonParser.identifier
+    ) > splat(StructProperty)
+
+    struct_statement = (
+        KeywordParser.kw_struct >> CommonParser.identifier
+        & opt(
+            SpecialCharacterParser.angel_open
+            >> repsep(CommonParser.identifier, SpecialCharacterParser.comma)
+            << SpecialCharacterParser.angel_close
+        )
+        << SpecialCharacterParser.curly_open
+        & opt(
+            repsep(struct_property, SpecialCharacterParser.semicolon)
+            << SpecialCharacterParser.semicolon
+        )
+        << SpecialCharacterParser.curly_close
+    ) > splat(StructStatement.parse)
