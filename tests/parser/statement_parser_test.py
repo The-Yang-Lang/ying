@@ -10,6 +10,8 @@ from ying.ast.statements import (
 )
 from ying.parser.statement import StatementParser
 
+# region import statement
+
 
 def test_parse_import_statement_with_no_imported_identifiers():
     result = StatementParser.import_statement.parse(
@@ -50,6 +52,8 @@ def test_parse_import_statement_with_aliased_identifiers():
         )
     )
 
+
+# endregion
 
 # region structs
 
