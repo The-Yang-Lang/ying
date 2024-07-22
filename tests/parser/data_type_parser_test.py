@@ -41,6 +41,32 @@ def test_parenthesized_single_data_type():
     assert result == Success(DataType("string"))
 
 
+def test_parenthesized_intersection_data_type():
+    result = DataTypeParser.parenthesized_data_type.parse("(string & int)")
+
+    assert result == Success(
+        IntersectionDataType(
+            [
+                DataType("string"),
+                DataType("int"),
+            ]
+        )
+    )
+
+
+def test_parenthesized_union_data_type():
+    result = DataTypeParser.parenthesized_data_type.parse("(string | int)")
+
+    assert result == Success(
+        UnionDataType(
+            [
+                DataType("string"),
+                DataType("int"),
+            ]
+        )
+    )
+
+
 def test_first_complex_data_type():
     result = DataTypeParser.data_type.parse("string | int & bool")
 
