@@ -40,7 +40,7 @@ class StructProperty:
 class StructStatement:
     name: str
 
-    type_variables: list[str]
+    type_arguments: list[str]
 
     properties: list[StructProperty]
 

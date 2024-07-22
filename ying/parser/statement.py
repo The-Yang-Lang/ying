@@ -38,13 +38,11 @@ class StatementParser(ParserContext, whitespace=r"\s*"):
         & DataTypeParser.data_type
     ) > splat(StructProperty)
 
-    # TODO: Parse type arguments with constraints
-
     struct_statement = (
         KeywordParser.kw_struct >> CommonParser.identifier
         & opt(
             SpecialCharacterParser.angel_open
-            >> repsep(CommonParser.identifier, SpecialCharacterParser.comma)
+            >> repsep(DataTypeParser.type_argument, SpecialCharacterParser.comma)
             << SpecialCharacterParser.angel_close
         )
         << SpecialCharacterParser.curly_open

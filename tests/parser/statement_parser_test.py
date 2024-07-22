@@ -1,6 +1,6 @@
 from parsita import Success
 
-from ying.ast.data_types import DataType
+from ying.ast.data_types import DataType, TypeArgument
 from ying.ast.statements import (
     ImportedAliasedIdentifier,
     ImportedIdentifier,
@@ -63,10 +63,44 @@ def test_parse_struct_with_no_properties():
     assert result == Success(StructStatement("User", [], []))
 
 
-def test_parse_struct_with_no_properties_and_type_variables():
+def test_parse_struct_with_no_properties_and_one_type_argument():
     result = StatementParser.struct_statement.parse("struct User<T> {\n}")
 
-    assert result == Success(StructStatement("User", ["T"], []))
+    assert result == Success(
+        StructStatement(
+            "User",
+            type_arguments=[
+                TypeArgument(
+                    name="T",
+                    class_constraint=None,
+                    interface_constraint=None,
+                )
+            ],
+            properties=[],
+        )
+    )
+
+
+def test_parse_struct_with_one_property_and_one_type_argument():
+    result = StatementParser.struct_statement.parse(
+        """struct User<T> {
+    profile: T;
+}"""
+    )
+
+    assert result == Success(
+        StructStatement(
+            "User",
+            type_arguments=[
+                TypeArgument(
+                    name="T",
+                    class_constraint=None,
+                    interface_constraint=None,
+                )
+            ],
+            properties=[StructProperty("profile", DataType("T"))],
+        )
+    )
 
 
 def test_parse_struct_with_single_property():
