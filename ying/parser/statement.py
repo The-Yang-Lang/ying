@@ -9,6 +9,7 @@ from ying.ast.statements import (
     StructStatement,
 )
 from ying.parser.common import CommonParser
+from ying.parser.data_type import DataTypeParser
 from ying.parser.keyword import KeywordParser
 from ying.parser.special_character import SpecialCharacterParser
 
@@ -32,11 +33,9 @@ class StatementParser(ParserContext, whitespace=r"\s*"):
         & CommonParser.string << SpecialCharacterParser.semicolon
     ) > splat(ImportStatement.parse)
 
-    # TODO: Parse data type
-
     struct_property = (
         CommonParser.identifier << SpecialCharacterParser.colon
-        & CommonParser.identifier
+        & DataTypeParser.data_type
     ) > splat(StructProperty)
 
     # TODO: Parse type arguments with constraints

@@ -1,5 +1,6 @@
 from parsita import Success
 
+from ying.ast.data_types import DataType
 from ying.ast.statements import (
     ImportedAliasedIdentifier,
     ImportedIdentifier,
@@ -53,7 +54,7 @@ def test_parse_import_statement_with_aliased_identifiers():
 def test_parse_struct_property():
     result = StatementParser.struct_property.parse("username: string")
 
-    assert result == Success(StructProperty("username", "string"))
+    assert result == Success(StructProperty("username", DataType("string")))
 
 
 def test_parse_struct_with_no_properties():
@@ -80,7 +81,7 @@ def test_parse_struct_with_single_property():
             "User",
             [],
             [
-                StructProperty("username", "string"),
+                StructProperty("username", DataType("string")),
             ],
         )
     )
@@ -100,9 +101,9 @@ def test_parse_struct_with_multiple_properties():
             "User",
             [],
             [
-                StructProperty("id", "int"),
-                StructProperty("username", "string"),
-                StructProperty("email", "string"),
+                StructProperty("id", DataType("int")),
+                StructProperty("username", DataType("string")),
+                StructProperty("email", DataType("string")),
             ],
         )
     )
