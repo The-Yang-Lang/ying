@@ -56,6 +56,4 @@ class StructStatement:
         if len(properties) > 0:
             struct_properties = properties[0]
 
-        print(type_variables)
-
         return StructStatement(name, struct_type_variables, struct_properties)
