@@ -12,7 +12,46 @@ from ying.parser.data_type import DataTypeParser
 def test_basic_data_type():
     result = DataTypeParser.raw_data_type.parse("string")
 
-    assert result == Success(DataType("string"))
+    assert result == Success(DataType("string", []))
+
+
+def test_basic_data_type_with_single_type_argument():
+    result = DataTypeParser.raw_data_type.parse("List<string>")
+
+    assert result == Success(
+        DataType(
+            "List",
+            [
+                TypeArgument(
+                    "string",
+                    class_constraint=None,
+                    interface_constraint=None,
+                ),
+            ],
+        )
+    )
+
+
+def test_basic_data_type_with_two_type_arguments():
+    result = DataTypeParser.raw_data_type.parse("Dictionary<string, int>")
+
+    assert result == Success(
+        DataType(
+            "Dictionary",
+            [
+                TypeArgument(
+                    "string",
+                    class_constraint=None,
+                    interface_constraint=None,
+                ),
+                TypeArgument(
+                    "int",
+                    class_constraint=None,
+                    interface_constraint=None,
+                ),
+            ],
+        )
+    )
 
 
 def test_union_data_type():
@@ -21,8 +60,8 @@ def test_union_data_type():
     assert result == Success(
         UnionDataType(
             [
-                DataType("string"),
-                DataType("int"),
+                DataType("string", []),
+                DataType("int", []),
             ]
         )
     )
@@ -34,8 +73,8 @@ def test_intersection_data_type():
     assert result == Success(
         IntersectionDataType(
             [
-                DataType("string"),
-                DataType("int"),
+                DataType("string", []),
+                DataType("int", []),
             ]
         )
     )
@@ -48,7 +87,7 @@ def test_parenthesized_single_data_type():
     result = DataTypeParser.parenthesized_data_type.parse("(string)")
 
     assert result == Success(
-        ParenthesizedDataType(DataType("string")),
+        ParenthesizedDataType(DataType("string", [])),
     )
 
 
@@ -58,7 +97,7 @@ def test_parenthesized_contains_parenthesized_data_type():
     assert result == Success(
         ParenthesizedDataType(
             ParenthesizedDataType(
-                DataType("string"),
+                DataType("string", []),
             ),
         ),
     )
@@ -71,8 +110,8 @@ def test_parenthesized_intersection_data_type():
         ParenthesizedDataType(
             IntersectionDataType(
                 [
-                    DataType("string"),
-                    DataType("int"),
+                    DataType("string", []),
+                    DataType("int", []),
                 ]
             ),
         )
@@ -86,8 +125,8 @@ def test_parenthesized_union_data_type():
         ParenthesizedDataType(
             UnionDataType(
                 [
-                    DataType("string"),
-                    DataType("int"),
+                    DataType("string", []),
+                    DataType("int", []),
                 ]
             ),
         )
@@ -100,19 +139,16 @@ def test_first_complex_data_type():
     assert result == Success(
         UnionDataType(
             [
-                DataType("string"),
+                DataType("string", []),
                 IntersectionDataType(
                     [
-                        DataType("int"),
-                        DataType("bool"),
+                        DataType("int", []),
+                        DataType("bool", []),
                     ]
                 ),
             ]
         )
     )
-
-
-# endregion
 
 
 def test_second_complex_data_type():
@@ -123,26 +159,29 @@ def test_second_complex_data_type():
     assert result == Success(
         UnionDataType(
             [
-                DataType("string"),
+                DataType("string", []),
                 IntersectionDataType(
                     [
-                        DataType("int"),
-                        DataType("bool"),
-                        DataType("char"),
+                        DataType("int", []),
+                        DataType("bool", []),
+                        DataType("char", []),
                     ]
                 ),
                 ParenthesizedDataType(
                     IntersectionDataType(
                         [
-                            DataType("User"),
-                            DataType("Account"),
+                            DataType("User", []),
+                            DataType("Account", []),
                         ]
                     ),
                 ),
-                DataType("float"),
+                DataType("float", []),
             ]
         )
     )
+
+
+# endregion
 
 
 # region type argument
@@ -166,7 +205,7 @@ def test_type_argument_with_class_constraint():
     assert result == Success(
         TypeArgument(
             name="T",
-            class_constraint=DataType("string"),
+            class_constraint=DataType("string", []),
             interface_constraint=None,
         )
     )
@@ -179,7 +218,7 @@ def test_type_argument_with_simple_interface_constraint():
         TypeArgument(
             name="T",
             class_constraint=None,
-            interface_constraint=DataType("string"),
+            interface_constraint=DataType("string", []),
         )
     )
 
@@ -193,8 +232,8 @@ def test_type_argument_with_complex_interface_constraint():
             class_constraint=None,
             interface_constraint=IntersectionDataType(
                 [
-                    DataType("string"),
-                    DataType("int"),
+                    DataType("string", []),
+                    DataType("int", []),
                 ]
             ),
         )
@@ -207,8 +246,8 @@ def test_type_argument_with_class_and_interface_constraint():
     assert result == Success(
         TypeArgument(
             name="T",
-            class_constraint=DataType("Command"),
-            interface_constraint=DataType("string"),
+            class_constraint=DataType("Command", []),
+            interface_constraint=DataType("string", []),
         )
     )
 

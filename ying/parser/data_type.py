@@ -14,9 +14,14 @@ from ying.parser.special_character import SpecialCharacterParser
 
 
 class DataTypeParser(ParserContext, whitespace=r"\s*"):
+    type_argument = fwd()
     data_type = fwd()
 
-    raw_data_type = CommonParser.identifier > DataType
+    raw_data_type = CommonParser.identifier & opt(
+        SpecialCharacterParser.angel_open
+        >> repsep(type_argument, SpecialCharacterParser.comma)
+        << SpecialCharacterParser.angel_close
+    ) > splat(DataType.parse)
 
     parenthesized_data_type = (
         SpecialCharacterParser.parenthesis_open
@@ -49,8 +54,11 @@ class DataTypeParser(ParserContext, whitespace=r"\s*"):
         | raw_data_type
     )
 
-    type_argument = (
-        CommonParser.identifier
-        & opt(KeywordParser.kw_extends >> raw_data_type)
-        & opt(KeywordParser.kw_implements >> data_type)
-    ) > splat(TypeArgument.parse)
+    type_argument.define(
+        (
+            CommonParser.identifier
+            & opt(KeywordParser.kw_extends >> raw_data_type)
+            & opt(KeywordParser.kw_implements >> data_type)
+        )
+        > splat(TypeArgument.parse)
+    )

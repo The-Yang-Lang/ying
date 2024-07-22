@@ -8,6 +8,17 @@ from typing import Optional, Union
 class DataType:
     name: str
 
+    type_arguments: list[TypeArgument]
+
+    @staticmethod
+    def parse(name, possible_type_arguments) -> DataType:
+        type_arguments = []
+
+        if len(possible_type_arguments) > 0:
+            type_arguments = possible_type_arguments[0]
+
+        return DataType(name, type_arguments)
+
 
 @dataclass
 class UnionDataType:
