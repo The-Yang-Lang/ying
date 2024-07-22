@@ -54,7 +54,7 @@ def test_parse_import_statement_with_aliased_identifiers():
 def test_parse_struct_property():
     result = StatementParser.struct_property.parse("username: string")
 
-    assert result == Success(StructProperty("username", DataType("string")))
+    assert result == Success(StructProperty("username", DataType("string", [])))
 
 
 def test_parse_struct_with_no_properties():
@@ -98,7 +98,7 @@ def test_parse_struct_with_one_property_and_one_type_argument():
                     interface_constraint=None,
                 )
             ],
-            properties=[StructProperty("profile", DataType("T"))],
+            properties=[StructProperty("profile", DataType("T", []))],
         )
     )
 
@@ -115,7 +115,7 @@ def test_parse_struct_with_single_property():
             "User",
             [],
             [
-                StructProperty("username", DataType("string")),
+                StructProperty("username", DataType("string", [])),
             ],
         )
     )
@@ -135,9 +135,9 @@ def test_parse_struct_with_multiple_properties():
             "User",
             [],
             [
-                StructProperty("id", DataType("int")),
-                StructProperty("username", DataType("string")),
-                StructProperty("email", DataType("string")),
+                StructProperty("id", DataType("int", [])),
+                StructProperty("username", DataType("string", [])),
+                StructProperty("email", DataType("string", [])),
             ],
         )
     )
