@@ -5,7 +5,7 @@ from ying.shared.utils import join_parser_parts
 
 
 class CommonParser(ParserContext, whitespace=r"\s*"):
-    identifier = reg(r"[a-zA-Z_]+")
+    identifier = reg(r"[a-zA-Z_][a-zA-Z0-9_]*")
     string = reg(r"\"([^\"\\]|\\[\s\S])*\"")
     char = reg(r"'([a-zA-Z0-9]|\\[a-zA-Z])'")
     boolean = lit("true") | lit("false")

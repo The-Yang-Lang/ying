@@ -7,7 +7,7 @@ from ying.parser.common import CommonParser
 def test_identifier_requires_at_least_one_character():
     result = CommonParser.identifier.parse("")
 
-    assert result.failure().expected == ["r'[a-zA-Z_]+'"]
+    assert result.failure().expected == ["r'[a-zA-Z_][a-zA-Z0-9_]*'"]
 
 
 def test_identifier_with_no_underscores():
@@ -38,6 +38,18 @@ def test_identifier_with_trailing_double_underscore():
     result = CommonParser.identifier.parse("unit_test__")
 
     assert result == Success("unit_test__")
+
+
+def test_identifier_with_integer_at_the_end():
+    result = CommonParser.identifier.parse("Vector2")
+
+    assert result == Success("Vector2")
+
+
+def test_identifier_with_integer_at_the_start():
+    result = CommonParser.identifier.parse("2Vector")
+
+    assert result.failure().expected == ["r'[a-zA-Z_][a-zA-Z0-9_]*'"]
 
 
 # endregion
