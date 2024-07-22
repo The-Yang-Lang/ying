@@ -41,6 +41,9 @@ def test_intersection_data_type():
     )
 
 
+# region parenthesized data types
+
+
 def test_parenthesized_single_data_type():
     result = DataTypeParser.parenthesized_data_type.parse("(string)")
 
@@ -109,6 +112,9 @@ def test_first_complex_data_type():
     )
 
 
+# endregion
+
+
 def test_second_complex_data_type():
     result = DataTypeParser.data_type.parse(
         "string | int & bool & char | (User & Account) | float"
@@ -137,6 +143,9 @@ def test_second_complex_data_type():
             ]
         )
     )
+
+
+# region type argument
 
 
 def test_type_argument_without_constraints():
@@ -202,3 +211,6 @@ def test_type_argument_with_class_and_interface_constraint():
             interface_constraint=DataType("string"),
         )
     )
+
+
+# endregion
