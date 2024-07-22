@@ -42,3 +42,15 @@ def test_as_keyword():
     result = KeywordParser.kw_as.parse("as")
 
     assert result == Success("as")
+
+
+def test_extends_keyword():
+    result = KeywordParser.kw_extends.parse("extends")
+
+    assert result == Success("extends")
+
+
+def test_implements_keyword():
+    result = KeywordParser.kw_implements.parse("implements")
+
+    assert result == Success("implements")
