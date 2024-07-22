@@ -66,3 +66,8 @@ class TypeStatement:
     name: str
 
     data_type: ComplexDataType
+
+
+@dataclass
+class ExportStatement:
+    statement: Union[StructStatement, TypeStatement]

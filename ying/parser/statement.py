@@ -2,6 +2,7 @@ from parsita import opt, ParserContext, repsep
 from parsita.util import splat
 
 from ying.ast.statements import (
+    ExportStatement,
     ImportedAliasedIdentifier,
     ImportedIdentifier,
     ImportStatement,
@@ -60,3 +61,9 @@ class StatementParser(ParserContext, whitespace=r"\s*"):
         << SpecialCharacterParser.equal_sign
         & DataTypeParser.data_type << SpecialCharacterParser.semicolon
     ) > splat(TypeStatement)
+
+    exportable_statements = struct_statement | type_statement
+
+    export_statement = (
+        KeywordParser.kw_export >> exportable_statements > ExportStatement
+    )

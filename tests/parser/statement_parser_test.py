@@ -7,6 +7,7 @@ from ying.ast.data_types import (
     UnionDataType,
 )
 from ying.ast.statements import (
+    ExportStatement,
     ImportedAliasedIdentifier,
     ImportedIdentifier,
     ImportStatement,
@@ -200,6 +201,31 @@ def test_type_statement_with_union_data_type():
                     DataType("int", []),
                 ]
             ),
+        )
+    )
+
+
+# endregion
+
+# region export statement
+
+
+def test_exported_struct_statement():
+    result = StatementParser.export_statement.parse("export struct User {}")
+
+    assert result == Success(
+        ExportStatement(
+            StructStatement("User", type_arguments=[], properties=[]),
+        )
+    )
+
+
+def test_exported_type_statement():
+    result = StatementParser.export_statement.parse("export type Id = string;")
+
+    assert result == Success(
+        ExportStatement(
+            TypeStatement("Id", DataType("string", [])),
         )
     )
 
