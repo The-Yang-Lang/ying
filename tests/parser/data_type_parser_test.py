@@ -5,7 +5,7 @@ from ying.ast.data_types import (
     ParenthesizedDataType,
     UnionDataType,
 )
-from ying.parser import DataTypeParser
+from ying.parser.data_type import DataTypeParser
 
 
 def test_basic_data_type():

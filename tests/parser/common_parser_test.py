@@ -1,5 +1,5 @@
 from parsita import Success
-from ying.parser import CommonParser
+from ying.parser.common import CommonParser
 
 # region identifier
 

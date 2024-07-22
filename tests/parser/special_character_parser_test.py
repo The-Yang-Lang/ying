@@ -1,5 +1,5 @@
 from parsita import Success
-from ying.parser import SpecialCharacterParser
+from ying.parser.special_character import SpecialCharacterParser
 
 
 def test_parenthesis_open():

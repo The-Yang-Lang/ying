@@ -7,7 +7,7 @@ from ying.ast.statements import (
     StructProperty,
     StructStatement,
 )
-from ying.parser import StatementParser
+from ying.parser.statement import StatementParser
 
 
 def test_parse_import_statement_with_no_imported_identifiers():

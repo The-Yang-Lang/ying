@@ -1,6 +1,6 @@
 from parsita import rep, Success
 from ying.ast.comments import LineComment, MultiLineComment
-from ying.parser import CommentParser
+from ying.parser.comment import CommentParser
 
 
 def test_line_comment_without_newline():

@@ -1,5 +1,5 @@
 from parsita import Success
-from ying.parser import KeywordParser
+from ying.parser.keyword import KeywordParser
 
 
 def test_import_keyword():
