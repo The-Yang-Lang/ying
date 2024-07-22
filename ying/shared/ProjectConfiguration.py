@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import json
 import logging
 from dataclasses import dataclass
@@ -81,7 +83,7 @@ class ProjectConfiguration:
         return None
 
     @staticmethod
-    def read_from_file(path: Path) -> Optional["ProjectConfiguration"]:
+    def read_from_file(path: Path) -> ProjectConfiguration:
         """Tries to read the project configuration file from the given path.
 
         Returns:
