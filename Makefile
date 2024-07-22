@@ -19,6 +19,10 @@ watch:
 test:
 	${POETRY_EXECUTABLE} run pytest -v
 
+.PHONY: watch-tests-cmd
+watch-tests-cmd:
+	${POETRY_EXECUTABLE} run pytest -v --picked --parent-branch=master
+
 .PHONY: watch-tests
 watch-tests:
-	${NODEMON_EXECUTABLE} ${DEFAULT_NODEMON_ARGS} -x "make clear test || exit 1"
+	${NODEMON_EXECUTABLE} ${DEFAULT_NODEMON_ARGS} -x "make clear watch-tests-cmd || exit 1"
