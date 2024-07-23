@@ -13,12 +13,16 @@ ying = "ying:main"
 python = "^3.12"
 rich = "^13.7.1"
 parsita = "^2.1.1"
-ruff = "^0.5.4"
 
 [tool.poetry.group.test.dependencies]
 pytest = "^8.0.0"
 pytest-picked = "^0.5.0"
 pytest-mock = "*"
+
+
+[tool.poetry.group.code-quality.dependencies]
+ruff = "^0.5.4"
+pre-commit = "^3.7.1"
 
 [build-system]
 requires = ["poetry-core"]
