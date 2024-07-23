@@ -2,11 +2,19 @@ from parsita import Success
 
 from ying.ast.data_types import (
     DataType,
+    InferDataType,
     IntersectionDataType,
     TypeArgument,
     UnionDataType,
 )
-from ying.ast.literals import StringLiteral
+from ying.ast.expression import NumericExpression
+from ying.ast.literals import (
+    BooleanLiteral,
+    CharLiteral,
+    FloatLiteral,
+    IntegerLiteral,
+    StringLiteral,
+)
 from ying.ast.statements import (
     ExportStatement,
     ImportedAliasedIdentifier,
@@ -18,6 +26,7 @@ from ying.ast.statements import (
     StructProperty,
     StructStatement,
     TypeStatement,
+    VariableDeclarationStatement,
 )
 from ying.parser.statement import StatementParser
 
@@ -465,6 +474,119 @@ def test_exported_interface_statement():
     assert result == Success(
         ExportStatement(
             InterfaceStatement("Command", [], []),
+        )
+    )
+
+
+# endregion
+
+# region variable declarations
+
+
+def test_variable_declaration_with_string_literal():
+    result = StatementParser.variable_declaration.parse('var test = "1";')
+
+    assert result == Success(
+        VariableDeclarationStatement(
+            "test", data_type=InferDataType(), expression=StringLiteral("1")
+        ),
+    )
+
+
+def test_variable_declaration_with_char_literal():
+    result = StatementParser.variable_declaration.parse("var test = '1';")
+
+    assert result == Success(
+        VariableDeclarationStatement(
+            "test", data_type=InferDataType(), expression=CharLiteral("1")
+        ),
+    )
+
+
+def test_variable_declaration_with_integer_literal():
+    result = StatementParser.variable_declaration.parse("var test = 1;")
+
+    assert result == Success(
+        VariableDeclarationStatement(
+            "test",
+            data_type=InferDataType(),
+            expression=IntegerLiteral(1),
+        ),
+    )
+
+
+def test_variable_declaration_with_float_literal():
+    result = StatementParser.variable_declaration.parse("var test = 13.37;")
+
+    assert result == Success(
+        VariableDeclarationStatement(
+            "test",
+            data_type=InferDataType(),
+            expression=FloatLiteral(13.37),
+        ),
+    )
+
+
+def test_variable_declaration_with_hexadecimal_integer_literal():
+    result = StatementParser.variable_declaration.parse("var test = 0xFF;")
+
+    assert result == Success(
+        VariableDeclarationStatement(
+            "test",
+            data_type=InferDataType(),
+            expression=IntegerLiteral(255),
+        ),
+    )
+
+
+def test_variable_declaration_with_octal_integer_literal():
+    result = StatementParser.variable_declaration.parse("var test = 0o777;")
+
+    assert result == Success(
+        VariableDeclarationStatement(
+            "test",
+            data_type=InferDataType(),
+            expression=IntegerLiteral(511),
+        ),
+    )
+
+
+def test_variable_declaration_with_numeric_expression():
+    result = StatementParser.variable_declaration.parse("var test = 1 + 1;")
+
+    assert result == Success(
+        VariableDeclarationStatement(
+            "test",
+            data_type=InferDataType(),
+            expression=NumericExpression(
+                IntegerLiteral(1),
+                "+",
+                IntegerLiteral(1),
+            ),
+        ),
+    )
+
+
+def test_variable_declration_with_true_literal():
+    result = StatementParser.variable_declaration.parse("var test = true;")
+
+    assert result == Success(
+        VariableDeclarationStatement(
+            "test",
+            InferDataType(),
+            BooleanLiteral("true"),
+        )
+    )
+
+
+def test_variable_declration_with_false_literal():
+    result = StatementParser.variable_declaration.parse("var test = false;")
+
+    assert result == Success(
+        VariableDeclarationStatement(
+            "test",
+            InferDataType(),
+            BooleanLiteral("false"),
         )
     )
 

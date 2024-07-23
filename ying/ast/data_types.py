@@ -41,9 +41,16 @@ class ParenthesizedDataType:
     ]
 
 
+@dataclass
+class InferDataType:
+    pass
+
+
 ComplexDataType: TypeAlias = Union[
     DataType, UnionDataType, IntersectionDataType, ParenthesizedDataType
 ]
+
+InferableDataType = Union[InferDataType, ComplexDataType]
 
 
 @dataclass

@@ -3,7 +3,13 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Union
 
-from ying.ast.data_types import ComplexDataType, TypeArgument
+from ying.ast.data_types import (
+    ComplexDataType,
+    InferableDataType,
+    InferDataType,
+    TypeArgument,
+)
+from ying.ast.expression import Expression
 
 
 @dataclass
@@ -143,3 +149,19 @@ class InterfaceStatement:
 @dataclass
 class ExportStatement:
     statement: Union[StructStatement, TypeStatement]
+
+
+@dataclass
+class VariableDeclarationStatement:
+    name: str
+    data_type: InferableDataType
+    expression: Expression
+
+    @staticmethod
+    def parse(name, possible_data_type, expression):
+        data_type = InferDataType()
+
+        if len(possible_data_type) > 0:
+            data_type = possible_data_type[0]
+
+        return VariableDeclarationStatement(name, data_type, expression)

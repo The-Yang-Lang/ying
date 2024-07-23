@@ -12,9 +12,11 @@ from ying.ast.statements import (
     StructProperty,
     StructStatement,
     TypeStatement,
+    VariableDeclarationStatement,
 )
 from ying.parser.common import CommonParser
 from ying.parser.data_type import DataTypeParser
+from ying.parser.expression import ExpressionParser
 from ying.parser.keyword import KeywordParser
 from ying.parser.special_character import SpecialCharacterParser
 
@@ -103,3 +105,10 @@ class StatementParser(ParserContext, whitespace=r"\s*"):
     export_statement = (
         KeywordParser.kw_export >> exportable_statements > ExportStatement
     )
+
+    variable_declaration = (
+        KeywordParser.kw_var >> CommonParser.identifier
+        & opt(SpecialCharacterParser.colon >> DataTypeParser.data_type)
+        << SpecialCharacterParser.equal_sign
+        & (ExpressionParser.additive_expression) << SpecialCharacterParser.semicolon
+    ) > splat(VariableDeclarationStatement.parse)

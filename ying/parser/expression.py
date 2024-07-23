@@ -6,13 +6,17 @@ from ying.parser.special_character import SpecialCharacterParser
 
 
 class ExpressionParser(ParserContext, whitespace=r"\s*"):
-    number = CommonParser.float | CommonParser.integer
-
     additive_expression = fwd()
-    unit = number | (lit("(") >> additive_expression << lit(")"))
+
+
+    unit = (CommonParser.literal | CommonParser.identifier) | (
+        lit("(") >> additive_expression << lit(")")
+    )
+
     unary = (
         opt(SpecialCharacterParser.plus | SpecialCharacterParser.minus) & unit
     ) > UnaryExpression.parse
+
     multiplicative_expression = fwd()
 
     additive_expression.define(
