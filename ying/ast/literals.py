@@ -19,3 +19,46 @@ class CharLiteral:
     @staticmethod
     def parse(value: str) -> CharLiteral:
         return CharLiteral(value[1:-1])
+
+
+@dataclass
+class BooleanLiteral:
+    value: str
+
+    def is_truthy(self) -> bool:
+        """Returns True when the value is "true"
+
+        Returns:
+            bool: True when the value is "true". False otherwise.
+        """
+
+        return self.value == "true"
+
+    def is_falsy(self) -> bool:
+        """Returns False when the value is "false"
+
+        Returns:
+            bool: True when the value is "false". False otherwise.
+        """
+
+        return self.value == "false"
+
+
+@dataclass
+class IntegerLiteral:
+    value: int
+
+    def parse(value: str) -> IntegerLiteral:
+        cleaned_value = value.replace("_", "")
+
+        return IntegerLiteral(int(cleaned_value))
+
+
+@dataclass
+class FloatLiteral:
+    value: float
+
+    def parse(value: str) -> FloatLiteral:
+        cleaned_value = value.replace("_", "")
+
+        return FloatLiteral(float(cleaned_value))

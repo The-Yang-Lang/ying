@@ -1,6 +1,12 @@
 from parsita import Success
 
-from ying.ast.literals import CharLiteral, StringLiteral
+from ying.ast.literals import (
+    BooleanLiteral,
+    CharLiteral,
+    FloatLiteral,
+    IntegerLiteral,
+    StringLiteral,
+)
 from ying.parser.common import CommonParser
 
 # region identifier
@@ -108,13 +114,13 @@ def test_char_literal_with_more_then_one_character():
 def test_parse_true_as_boolean():
     result = CommonParser.boolean.parse("true")
 
-    assert result == Success("true")
+    assert result == Success(BooleanLiteral("true"))
 
 
 def test_parse_false_as_boolean():
     result = CommonParser.boolean.parse("false")
 
-    assert result == Success("false")
+    assert result == Success(BooleanLiteral("false"))
 
 
 # endregion
@@ -125,13 +131,13 @@ def test_parse_false_as_boolean():
 def test_parse_a_whole_number_as_integer():
     result = CommonParser.integer.parse("42")
 
-    assert result == Success("42")
+    assert result == Success(IntegerLiteral(42))
 
 
 def test_parse_a_whole_number_with_underscores_as_integer():
     result = CommonParser.integer.parse("1_000")
 
-    assert result == Success("1_000")
+    assert result == Success(IntegerLiteral(1_000))
 
 
 def test_should_not_parse_a_decimal_number_as_integer():
@@ -148,19 +154,19 @@ def test_should_not_parse_a_decimal_number_as_integer():
 def test_parse_a_decimal_number_as_float():
     result = CommonParser.float.parse("13.37")
 
-    assert result == Success("13.37")
+    assert result == Success(FloatLiteral(13.37))
 
 
 def test_parse_a_decimal_number_with_underscores_in_the_integer_part_as_float():
     result = CommonParser.float.parse("1_000.00")
 
-    assert result == Success("1_000.00")
+    assert result == Success(FloatLiteral(1_000.00))
 
 
 def test_parse_a_decimal_number_with_underscores_in_the_fraction_part_as_float():
     result = CommonParser.float.parse("1000.0_0")
 
-    assert result == Success("1000.0_0")
+    assert result == Success(FloatLiteral(1000.0_0))
 
 
 def test_should_not_parse_a_whole_number_as_float():
