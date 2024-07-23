@@ -51,7 +51,14 @@ class IntegerLiteral:
     def parse(value: str) -> IntegerLiteral:
         cleaned_value = value.replace("_", "")
 
-        return IntegerLiteral(int(cleaned_value))
+        base = 10
+
+        if value.startswith("0x"):
+            base = 16
+        elif value.startswith("0o"):
+            base = 8
+
+        return IntegerLiteral(int(cleaned_value, base=base))
 
 
 @dataclass

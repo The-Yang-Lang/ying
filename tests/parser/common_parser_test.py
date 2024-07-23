@@ -140,6 +140,18 @@ def test_parse_a_whole_number_with_underscores_as_integer():
     assert result == Success(IntegerLiteral(1_000))
 
 
+def test_should_parse_a_hexadecimal_number_as_integer():
+    result = CommonParser.integer.parse("0xFF")
+
+    assert result == Success(IntegerLiteral(255))
+
+
+def test_should_parse_an_octal_number_as_integer():
+    result = CommonParser.integer.parse("0o700")
+
+    assert result == Success(IntegerLiteral(448))
+
+
 def test_should_not_parse_a_decimal_number_as_integer():
     result = CommonParser.integer.parse("13.37")
 
