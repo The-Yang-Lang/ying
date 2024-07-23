@@ -1,4 +1,4 @@
-from parsita import opt, ParserContext, repsep
+from parsita import ParserContext, opt, repsep
 from parsita.util import splat
 
 from ying.ast.statements import (
@@ -96,9 +96,7 @@ class StatementParser(ParserContext, whitespace=r"\s*"):
     ) << SpecialCharacterParser.curly_open & opt(
         repsep(interface_member, SpecialCharacterParser.semicolon)
         << SpecialCharacterParser.semicolon
-    ) << SpecialCharacterParser.curly_close > splat(
-        InterfaceStatement.parse
-    )
+    ) << SpecialCharacterParser.curly_close > splat(InterfaceStatement.parse)
 
     exportable_statements = struct_statement | type_statement | interface_statement
 

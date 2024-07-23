@@ -49,7 +49,7 @@ class InitCommand(CliCommand):
 
         logging.debug("Amount of files in directory: %d", amount_of_files_in_directory)
 
-        if amount_of_files_in_directory > 0 and is_force == False:
+        if amount_of_files_in_directory > 0 and not is_force:
             logging.error(
                 "Directory %s is not empty and the force flag is not set",
                 project_directory,
@@ -155,7 +155,7 @@ export function main(program_arguments: Array<string>): int {
     def get_user_input(prompt: str, default_value: str) -> Optional[str]:
         try:
             user_input = input(prompt).strip()
-        except:
+        except Exception:
             return None
 
         if user_input == "":

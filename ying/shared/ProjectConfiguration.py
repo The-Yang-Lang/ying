@@ -113,5 +113,5 @@ class ProjectConfiguration:
                 entrypoint=parsed_file_contents.entrypoint,
                 scripts=parsed_file_contents.scripts,
             )
-        except:
+        except Exception:
             return None
