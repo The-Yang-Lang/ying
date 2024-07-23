@@ -153,6 +153,18 @@ export function main(program_arguments: Array<string>): int {
 
     @staticmethod
     def get_user_input(prompt: str, default_value: str) -> Optional[str]:
+        """Tries to read an input from the user. When the user pressed "control + c" or "control + d" the function returns None.
+        When the read input is equals to an empty string (after trimming it) the default value is returned.
+        Otherwise the user provided value is returned.
+
+        Args:
+            prompt (str): The prompt which will be presented to the user
+            default_value (str): The default value when the user-provided input is an empty string
+
+        Returns:
+            Optional[str]: The entered input
+        """
+
         try:
             user_input = input(prompt).strip()
         except Exception:

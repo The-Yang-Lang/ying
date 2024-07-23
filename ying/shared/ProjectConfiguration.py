@@ -87,8 +87,8 @@ class ProjectConfiguration:
         """Tries to read the project configuration file from the given path.
 
         Returns:
-            Optional["ProjectConfiguration"]: The read configuration or none if an error occurred.
-                                              Errors could be:
+            Optional[ProjectConfiguration]: The read configuration or none if an error occurred.
+                                            Errors could be:
                                               - the user does not have permissions to read the file
                                               - the file contains invalid JSON
                                               - the project type could not be determined

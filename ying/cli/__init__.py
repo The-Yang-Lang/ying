@@ -9,40 +9,50 @@ from ying.cli.CliCommand import CliCommand
 class CliApplication(ABC):
     @abstractmethod
     def get_name(self) -> str:
-        """
-        Returns the name of the application
+        """Returns the name of the application
 
-        :return: the name of the application
+        Returns:
+            str: The name of the application
         """
 
     @abstractmethod
     def get_version(self) -> str:
-        """
-        Returns the version of the application
+        """Returns the version of the application
 
-        :return: the version of the application
+        Returns:
+            str: The version of the application
         """
 
     @abstractmethod
     def get_description(self) -> Optional[str]:
-        """
-        Returns the optional description of the application
+        """Returns the optional description of the application
 
-        :return: the optional description of the application
+        Returns:
+            Optional[str]: The optional description of the application
         """
 
     @abstractmethod
     def get_commands(self) -> list[CliCommand]:
-        """
-        Returns the commands of the application
+        """Returns the commands of the application
 
-        :return: the commands of the application
+        Returns:
+            list[CliCommand]: The commands of the application
         """
 
     @staticmethod
     def get_command_by_args(
-        commands: list[CliCommand], args: list[str]
+        commands: list[CliCommand],
+        args: list[str],
     ) -> Optional[Tuple[CliCommand, Namespace]]:
+        """Tries to find a command by the given arguments
+
+        Args:
+            commands (list[CliCommand]): The commands to search in
+            args (list[str]): The list of arguments. The first entry will be used to find a command by its name
+
+        Returns:
+            Optional[Tuple[CliCommand, Namespace]]: The optionally found command including the parsed arguments for it
+        """
         if len(args) == 0:
             return None
 
@@ -69,10 +79,10 @@ class CliApplication(ABC):
         return None
 
     def run(self, arguments: list[str]):
-        """
-        Executes the application with the given arguments
+        """Executes the application with the given arguments
 
-        :return:
+        Args:
+            arguments (list[str]): The arguments for the application
         """
         logging.debug(
             "Running application %s v%s with arguments: %s",
