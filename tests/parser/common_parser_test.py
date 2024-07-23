@@ -1,6 +1,6 @@
 from parsita import Success
 
-from ying.ast.literals import StringLiteral
+from ying.ast.literals import CharLiteral, StringLiteral
 from ying.parser.common import CommonParser
 
 # region identifier
@@ -85,13 +85,13 @@ def test_string_literal_with_escaped_quote():
 def test_char_literal_with_no_escaped_character():
     result = CommonParser.char.parse("'a'")
 
-    assert result == Success("'a'")
+    assert result == Success(CharLiteral("a"))
 
 
 def test_char_literal_with_escaped_character():
     result = CommonParser.char.parse("'\\n'")
 
-    assert result == Success("'\\n'")
+    assert result == Success(CharLiteral("\\n"))
 
 
 def test_char_literal_with_more_then_one_character():
