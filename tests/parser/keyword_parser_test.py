@@ -1,4 +1,5 @@
 from parsita import Success
+
 from ying.parser.keyword import KeywordParser
 
 
@@ -60,3 +61,15 @@ def test_implements_keyword():
     result = KeywordParser.kw_implements.parse("implements")
 
     assert result == Success("implements")
+
+
+def test_var_keyword():
+    result = KeywordParser.kw_var.parse("var")
+
+    assert result == Success("var")
+
+
+def test_const_keyword():
+    result = KeywordParser.kw_const.parse("const")
+
+    assert result == Success("const")

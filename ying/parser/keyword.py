@@ -1,4 +1,4 @@
-from parsita import lit, ParserContext
+from parsita import ParserContext, lit
 
 
 class KeywordParser(ParserContext, whitespace=r"\s*"):
@@ -13,3 +13,5 @@ class KeywordParser(ParserContext, whitespace=r"\s*"):
     kw_extends = lit("extends")
     kw_implements = lit("implements")
     kw_static = lit("static")
+    kw_var = lit("var")
+    kw_const = lit("const")
