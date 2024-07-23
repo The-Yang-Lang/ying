@@ -1,6 +1,9 @@
-from parsita import rep, Success
+from parsita import Success, rep
+
 from ying.ast.comments import LineComment, MultiLineComment
 from ying.parser.comment import CommentParser
+
+# region line comment
 
 
 def test_line_comment_without_newline():
@@ -13,6 +16,11 @@ def test_line_comment_with_newline():
     result = CommentParser.line_comment.parse("\n// unit test\n")
 
     assert result == Success(LineComment("// unit test"))
+
+
+# endregion
+
+# region multi line comment
 
 
 def test_multi_line_comment_on_single_line():
@@ -41,6 +49,21 @@ def test_multi_line_comment_on_multi_line_with_asterisks():
     )
 
     assert result == Success(MultiLineComment(["/*", "* unit test", "*/"]))
+
+
+# endregion
+
+
+# region documentation comment
+
+
+def test_documentation_comment():
+    result = CommentParser.documentation_comment.parse("/** hello world */")
+
+    assert result == Success(MultiLineComment(["/** hello world */"]))
+
+
+# endregion
 
 
 def test_comment_with_line_comment_and_multi_line_comment():
