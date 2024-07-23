@@ -1,12 +1,13 @@
-from parsita import lit, ParserContext, reg
+from parsita import ParserContext, lit, reg
 
+from ying.ast.literals import StringLiteral
 from ying.parser.special_character import SpecialCharacterParser
 from ying.shared.utils import join_parser_parts
 
 
 class CommonParser(ParserContext, whitespace=r"\s*"):
     identifier = reg(r"[a-zA-Z_][a-zA-Z0-9_]*")
-    string = reg(r"\"([^\"\\]|\\[\s\S])*\"")
+    string = reg(r"\"([^\"\\]|\\[\s\S])*\"") > StringLiteral.parse
     char = reg(r"'([a-zA-Z0-9]|\\[a-zA-Z])'")
     boolean = lit("true") | lit("false")
     integer = reg(r"[0-9][0-9_]*")

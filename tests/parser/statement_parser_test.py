@@ -6,6 +6,7 @@ from ying.ast.data_types import (
     TypeArgument,
     UnionDataType,
 )
+from ying.ast.literals import StringLiteral
 from ying.ast.statements import (
     ExportStatement,
     ImportedAliasedIdentifier,
@@ -28,7 +29,7 @@ def test_parse_import_statement_with_no_imported_identifiers():
         'import { } from "package:testing";'
     )
 
-    assert result == Success(ImportStatement([], '"package:testing"'))
+    assert result == Success(ImportStatement([], StringLiteral("package:testing")))
 
 
 def test_parse_import_statement():
@@ -42,7 +43,7 @@ def test_parse_import_statement():
                 ImportedIdentifier("unit"),
                 ImportedIdentifier("test"),
             ],
-            '"package:testing"',
+            StringLiteral("package:testing"),
         )
     )
 
@@ -58,7 +59,7 @@ def test_parse_import_statement_with_aliased_identifiers():
                 ImportedAliasedIdentifier("unit", "Unit"),
                 ImportedIdentifier("test"),
             ],
-            '"package:testing"',
+            StringLiteral("package:testing"),
         )
     )
 

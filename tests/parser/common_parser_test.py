@@ -1,4 +1,6 @@
 from parsita import Success
+
+from ying.ast.literals import StringLiteral
 from ying.parser.common import CommonParser
 
 # region identifier
@@ -60,19 +62,19 @@ def test_identifier_with_integer_at_the_start():
 def test_string_literal_with_no_escaped_character():
     result = CommonParser.string.parse('"unit test"')
 
-    assert result == Success('"unit test"')
+    assert result == Success(StringLiteral("unit test"))
 
 
 def test_string_literal_with_escaped_character():
     result = CommonParser.string.parse('"unit \\b test"')
 
-    assert result == Success('"unit \\b test"')
+    assert result == Success(StringLiteral("unit \\b test"))
 
 
 def test_string_literal_with_escaped_quote():
     result = CommonParser.string.parse('"unit \\" test"')
 
-    assert result == Success('"unit \\" test"')
+    assert result == Success(StringLiteral('unit \\" test'))
 
 
 # endregion
