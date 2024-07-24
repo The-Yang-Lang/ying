@@ -15,7 +15,7 @@ from ying.ast.literals import (
 @dataclass
 class UnaryExpression:
     presign: str
-    literal: Union[IntegerLiteral, FloatLiteral]
+    literal: Union[IntegerLiteral, FloatLiteral, BooleanLiteral]
 
     @staticmethod
     def parse(
@@ -25,6 +25,7 @@ class UnaryExpression:
         FloatLiteral,
         NumericExpression,
         UnaryExpression,
+        BooleanLiteral,
     ]:
         presign = ""
 

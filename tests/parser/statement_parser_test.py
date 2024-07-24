@@ -7,7 +7,7 @@ from ying.ast.data_types import (
     TypeArgument,
     UnionDataType,
 )
-from ying.ast.expression import NumericExpression
+from ying.ast.expression import NumericExpression, UnaryExpression
 from ying.ast.literals import (
     BooleanLiteral,
     CharLiteral,
@@ -587,6 +587,30 @@ def test_variable_declration_with_false_literal():
             "test",
             InferDataType(),
             BooleanLiteral("false"),
+        )
+    )
+
+
+def test_inverted_true_literal():
+    result = StatementParser.variable_declaration.parse("var my_bool = !true;")
+
+    assert result == Success(
+        VariableDeclarationStatement(
+            "my_bool",
+            InferDataType(),
+            UnaryExpression("!", BooleanLiteral("true")),
+        )
+    )
+
+
+def test_inverted_false_literal():
+    result = StatementParser.variable_declaration.parse("var my_bool = !false;")
+
+    assert result == Success(
+        VariableDeclarationStatement(
+            "my_bool",
+            InferDataType(),
+            UnaryExpression("!", BooleanLiteral("false")),
         )
     )
 
