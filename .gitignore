@@ -6,3 +6,9 @@ __pycache__/
 
 # Ignore the "examples" directory for now
 examples/
+
+# Ignore pytest cache files
+.pytest_cache/
+
+# Ignore ruff cache files
+.ruff_cache/
