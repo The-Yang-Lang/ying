@@ -6,10 +6,10 @@ from ying.parser.special_character import SpecialCharacterParser
 
 
 class ExpressionParser(ParserContext, whitespace=r"\s*"):
-    additive_expression = fwd()
+    numeric_expression = fwd()
 
     unit = (CommonParser.literal | CommonParser.identifier) | (
-        lit("(") >> additive_expression << lit(")")
+        lit("(") >> numeric_expression << lit(")")
     )
 
     unary = (
@@ -21,32 +21,33 @@ class ExpressionParser(ParserContext, whitespace=r"\s*"):
         & unit
     ) > UnaryExpression.parse
 
-    multiplicative_expression = fwd()
-
-    additive_expression.define(
-        (
-            multiplicative_expression
-            & rep(
-                (SpecialCharacterParser.plus | SpecialCharacterParser.minus)
-                & multiplicative_expression
+    multiplicative_expression = (
+        unary
+        & rep(
+            (
+                SpecialCharacterParser.asterisk
+                | SpecialCharacterParser.slash
+                | SpecialCharacterParser.percent
             )
+            & unary
         )
-        > NumericExpression.parse
-    )
+    ) > NumericExpression.parse
 
-    multiplicative_expression.define(
-        (
-            unary
-            & rep(
-                (
-                    SpecialCharacterParser.asterisk
-                    | SpecialCharacterParser.slash
-                    | SpecialCharacterParser.percent
-                )
-                & unary
-            )
+    additive_expression = (
+        multiplicative_expression
+        & rep(
+            (SpecialCharacterParser.plus | SpecialCharacterParser.minus)
+            & multiplicative_expression
         )
-        > NumericExpression.parse
-    )
+    ) > NumericExpression.parse
 
-    numeric_expression = additive_expression
+    comparsive_expression = (
+        additive_expression
+        & rep(
+            (CommonParser.strict_equal | CommonParser.strict_unequal | SpecialCharacterParser.angel_close |
+             SpecialCharacterParser.angel_open | CommonParser.greater_than_or_equal | CommonParser.less_than_or_equal)
+            & additive_expression
+        )
+    ) > NumericExpression.parse
+
+    numeric_expression.define(comparsive_expression)

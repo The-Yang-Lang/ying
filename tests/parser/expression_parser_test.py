@@ -127,4 +127,24 @@ def test_another_expression():
     )
 
 
+def test_comparison():
+    result = ExpressionParser.numeric_expression.parse("1 + 2 == 3 * 4")
+
+    assert result == Success(
+        NumericExpression(
+            NumericExpression(
+                IntegerLiteral(1),
+                "+",
+                IntegerLiteral(2),
+            ),
+            "==",
+            NumericExpression(
+                IntegerLiteral(3),
+                "*",
+                IntegerLiteral(4),
+            ),
+        )
+    )
+
+
 # endregion
