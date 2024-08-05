@@ -1,6 +1,11 @@
 from parsita import ParserContext, fwd, lit, opt, rep
+from parsita.util import splat
 
-from ying.ast.expression import BinaryExpression, UnaryExpression
+from ying.ast.expression import (
+    BinaryExpression,
+    NestedAccessExpression,
+    UnaryExpression,
+)
 from ying.parser.common import CommonParser
 from ying.parser.special_character import SpecialCharacterParser
 
@@ -8,7 +13,21 @@ from ying.parser.special_character import SpecialCharacterParser
 class ExpressionParser(ParserContext, whitespace=r"\s*"):
     expression = fwd()
 
-    unit = (CommonParser.literal | CommonParser.identifier) | (
+    access_expression = CommonParser.identifier & rep(
+        (lit(".") & CommonParser.identifier)
+        | (
+            SpecialCharacterParser.bracket_open
+            & CommonParser.integer
+            & SpecialCharacterParser.bracket_close
+        )
+        | (
+            SpecialCharacterParser.bracket_open
+            & CommonParser.string
+            & SpecialCharacterParser.bracket_close
+        )
+    ) > splat(NestedAccessExpression.parse)
+
+    unit = (CommonParser.literal | CommonParser.identifier | access_expression) | (
         lit("(") >> expression << lit(")")
     )
 

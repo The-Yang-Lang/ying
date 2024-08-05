@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Union
+from typing import List, Union
 
 from ying.ast.literals import (
     BooleanLiteral,
@@ -53,6 +53,44 @@ class BinaryExpression:
         return expression
 
 
+@dataclass
+class PropertyAccessExpression:
+    property_name: str
+
+
+@dataclass
+class ArrayAccessExpression:
+    index: int
+
+
+@dataclass
+class NestedAccessExpression:
+    base_identifier: str
+
+    path: List[PropertyAccessExpression | ArrayAccessExpression]
+
+    @staticmethod
+    def parse(base_identifier, path_parts):
+        print(f"Path: {path_parts}")
+
+        path = []
+
+        for path_part in path_parts:
+            match path_part[0]:
+                case ".":
+                    path.append(PropertyAccessExpression(path_part[1]))
+                case "[":
+                    if isinstance(path_part[1], IntegerLiteral):
+                        path.append(ArrayAccessExpression(path_part[1].value))
+                    elif isinstance(path_part[1], StringLiteral):
+                        path.append(PropertyAccessExpression(path_part[1].value))
+
+        return NestedAccessExpression(
+            base_identifier,
+            path,
+        )
+
+
 type Expression = Union[
     StringLiteral,
     CharLiteral,
@@ -61,4 +99,5 @@ type Expression = Union[
     FloatLiteral,
     UnaryExpression,
     BinaryExpression,
+    NestedAccessExpression,
 ]

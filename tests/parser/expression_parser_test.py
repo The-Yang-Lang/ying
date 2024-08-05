@@ -1,6 +1,11 @@
 from parsita import Success
 
-from ying.ast.expression import BinaryExpression
+from ying.ast.expression import (
+    ArrayAccessExpression,
+    BinaryExpression,
+    NestedAccessExpression,
+    PropertyAccessExpression,
+)
 from ying.ast.literals import IntegerLiteral
 from ying.parser.expression import ExpressionParser
 
@@ -143,6 +148,79 @@ def test_comparison():
                 "*",
                 IntegerLiteral(4),
             ),
+        )
+    )
+
+
+# endregion
+
+# region Nested access
+
+
+def test_property_access():
+    result = ExpressionParser.expression.parse("user.id")
+
+    assert result == Success(
+        NestedAccessExpression(
+            "user",
+            [
+                PropertyAccessExpression("id"),
+            ],
+        )
+    )
+
+
+def test_indexed_property_access():
+    result = ExpressionParser.expression.parse('user["id"]')
+
+    assert result == Success(
+        NestedAccessExpression(
+            "user",
+            [
+                PropertyAccessExpression("id"),
+            ],
+        )
+    )
+
+
+def test_nested_property_access():
+    result = ExpressionParser.expression.parse("user.profile.id")
+
+    assert result == Success(
+        NestedAccessExpression(
+            "user",
+            [
+                PropertyAccessExpression("profile"),
+                PropertyAccessExpression("id"),
+            ],
+        )
+    )
+
+
+def test_array_access():
+    result = ExpressionParser.expression.parse("users[0]")
+
+    assert result == Success(
+        NestedAccessExpression(
+            "users",
+            [
+                ArrayAccessExpression(0),
+            ],
+        )
+    )
+
+
+def test_nested_array_access():
+    result = ExpressionParser.expression.parse("users[0].created_applications[0]")
+
+    assert result == Success(
+        NestedAccessExpression(
+            "users",
+            [
+                ArrayAccessExpression(0),
+                PropertyAccessExpression("created_applications"),
+                ArrayAccessExpression(0),
+            ],
         )
     )
 

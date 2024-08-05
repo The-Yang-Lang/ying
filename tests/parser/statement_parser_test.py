@@ -7,7 +7,12 @@ from ying.ast.data_types import (
     TypeArgument,
     UnionDataType,
 )
-from ying.ast.expression import BinaryExpression, UnaryExpression
+from ying.ast.expression import (
+    BinaryExpression,
+    NestedAccessExpression,
+    PropertyAccessExpression,
+    UnaryExpression,
+)
 from ying.ast.literals import (
     BooleanLiteral,
     CharLiteral,
@@ -644,6 +649,23 @@ def test_unequals_expression():
                 IntegerLiteral(0),
                 "==",
                 IntegerLiteral(1),
+            ),
+        )
+    )
+
+
+def nested_access_variable_declaration():
+    result = StatementParser.variable_declaration.parse("var user_id = user.id;")
+
+    assert result == Success(
+        VariableDeclarationStatement(
+            "user_id",
+            InferDataType(),
+            NestedAccessExpression(
+                "user",
+                [
+                    PropertyAccessExpression("id"),
+                ],
             ),
         )
     )
