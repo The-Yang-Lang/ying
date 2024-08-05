@@ -29,8 +29,7 @@ class CommonParser(ParserContext, whitespace=r"\s*"):
 
     strict_equal = (
         SpecialCharacterParser.equal_sign & SpecialCharacterParser.equal_sign
-        > join_parser_parts
-    )
+    ) > join_parser_parts
 
     strict_unequal = (
         SpecialCharacterParser.exclamation_mark & SpecialCharacterParser.equal_sign
@@ -38,10 +37,8 @@ class CommonParser(ParserContext, whitespace=r"\s*"):
 
     greater_than_or_equal = (
         SpecialCharacterParser.angel_close & SpecialCharacterParser.equal_sign
-        > join_parser_parts
-    )
+    ) > join_parser_parts
 
     less_than_or_equal = (
         SpecialCharacterParser.angel_open & SpecialCharacterParser.equal_sign
-        > join_parser_parts
-    )
+    ) > join_parser_parts
