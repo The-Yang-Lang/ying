@@ -7,7 +7,7 @@ from ying.ast.data_types import (
     TypeArgument,
     UnionDataType,
 )
-from ying.ast.expression import NumericExpression, UnaryExpression
+from ying.ast.expression import BinaryExpression, UnaryExpression
 from ying.ast.literals import (
     BooleanLiteral,
     CharLiteral,
@@ -551,14 +551,14 @@ def test_variable_declaration_with_octal_integer_literal():
     )
 
 
-def test_variable_declaration_with_numeric_expression():
+def test_variable_declaration_with_expression():
     result = StatementParser.variable_declaration.parse("var test = 1 + 1;")
 
     assert result == Success(
         VariableDeclarationStatement(
             "test",
             data_type=InferDataType(),
-            expression=NumericExpression(
+            expression=BinaryExpression(
                 IntegerLiteral(1),
                 "+",
                 IntegerLiteral(1),

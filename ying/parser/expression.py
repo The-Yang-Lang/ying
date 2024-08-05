@@ -1,15 +1,15 @@
 from parsita import ParserContext, fwd, lit, opt, rep
 
-from ying.ast.expression import NumericExpression, UnaryExpression
+from ying.ast.expression import BinaryExpression, UnaryExpression
 from ying.parser.common import CommonParser
 from ying.parser.special_character import SpecialCharacterParser
 
 
 class ExpressionParser(ParserContext, whitespace=r"\s*"):
-    numeric_expression = fwd()
+    expression = fwd()
 
     unit = (CommonParser.literal | CommonParser.identifier) | (
-        lit("(") >> numeric_expression << lit(")")
+        lit("(") >> expression << lit(")")
     )
 
     unary = (
@@ -31,7 +31,7 @@ class ExpressionParser(ParserContext, whitespace=r"\s*"):
             )
             & unary
         )
-    ) > NumericExpression.parse
+    ) > BinaryExpression.parse
 
     additive_expression = (
         multiplicative_expression
@@ -39,7 +39,7 @@ class ExpressionParser(ParserContext, whitespace=r"\s*"):
             (SpecialCharacterParser.plus | SpecialCharacterParser.minus)
             & multiplicative_expression
         )
-    ) > NumericExpression.parse
+    ) > BinaryExpression.parse
 
     comparsive_expression = (
         additive_expression
@@ -48,6 +48,6 @@ class ExpressionParser(ParserContext, whitespace=r"\s*"):
              SpecialCharacterParser.angel_open | CommonParser.greater_than_or_equal | CommonParser.less_than_or_equal)
             & additive_expression
         )
-    ) > NumericExpression.parse
+    ) > BinaryExpression.parse
 
-    numeric_expression.define(comparsive_expression)
+    expression.define(comparsive_expression)

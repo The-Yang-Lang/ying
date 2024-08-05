@@ -1,17 +1,17 @@
 from parsita import Success
 
-from ying.ast.expression import NumericExpression
+from ying.ast.expression import BinaryExpression
 from ying.ast.literals import IntegerLiteral
 from ying.parser.expression import ExpressionParser
 
-# region numeric expressions
+# region binary expressions
 
 
-def test_parse_numeric_expression_with_plus():
-    result = ExpressionParser.numeric_expression.parse("1 + 1")
+def test_parse_binary_expression_with_plus():
+    result = ExpressionParser.expression.parse("1 + 1")
 
     assert result == Success(
-        NumericExpression(
+        BinaryExpression(
             IntegerLiteral(1),
             "+",
             IntegerLiteral(1),
@@ -19,11 +19,11 @@ def test_parse_numeric_expression_with_plus():
     )
 
 
-def test_parse_numeric_expression_with_minus():
-    result = ExpressionParser.numeric_expression.parse("1 - 1")
+def test_parse_binary_expression_with_minus():
+    result = ExpressionParser.expression.parse("1 - 1")
 
     assert result == Success(
-        NumericExpression(
+        BinaryExpression(
             IntegerLiteral(1),
             "-",
             IntegerLiteral(1),
@@ -31,11 +31,11 @@ def test_parse_numeric_expression_with_minus():
     )
 
 
-def test_parse_numeric_expression_with_multiplication():
-    result = ExpressionParser.numeric_expression.parse("1 * 1")
+def test_parse_binary_expression_with_multiplication():
+    result = ExpressionParser.expression.parse("1 * 1")
 
     assert result == Success(
-        NumericExpression(
+        BinaryExpression(
             IntegerLiteral(1),
             "*",
             IntegerLiteral(1),
@@ -43,11 +43,11 @@ def test_parse_numeric_expression_with_multiplication():
     )
 
 
-def test_parse_numeric_expression_with_division():
-    result = ExpressionParser.numeric_expression.parse("1 / 1")
+def test_parse_binary_expression_with_division():
+    result = ExpressionParser.expression.parse("1 / 1")
 
     assert result == Success(
-        NumericExpression(
+        BinaryExpression(
             IntegerLiteral(1),
             "/",
             IntegerLiteral(1),
@@ -55,11 +55,11 @@ def test_parse_numeric_expression_with_division():
     )
 
 
-def test_parse_numeric_expression_with_modulo():
-    result = ExpressionParser.numeric_expression.parse("1 % 1")
+def test_parse_binary_expression_with_modulo():
+    result = ExpressionParser.expression.parse("1 % 1")
 
     assert result == Success(
-        NumericExpression(
+        BinaryExpression(
             IntegerLiteral(1),
             "%",
             IntegerLiteral(1),
@@ -67,12 +67,12 @@ def test_parse_numeric_expression_with_modulo():
     )
 
 
-def test_precedence_of_multiplication():
-    result = ExpressionParser.numeric_expression.parse("1 * 2 + 3")
+def test_precedance():
+    result = ExpressionParser.expression.parse("1 * 2 + 3")
 
     assert result == Success(
-        NumericExpression(
-            NumericExpression(
+        BinaryExpression(
+            BinaryExpression(
                 IntegerLiteral(1),
                 "*",
                 IntegerLiteral(2),
@@ -83,14 +83,14 @@ def test_precedence_of_multiplication():
     )
 
 
-def test_parse_numeric_expression_with_precedence():
-    result = ExpressionParser.numeric_expression.parse("1 + 2 * 3")
+def test_precedance_even_more():
+    result = ExpressionParser.expression.parse("1 + 2 * 3")
 
     assert result == Success(
-        NumericExpression(
+        BinaryExpression(
             IntegerLiteral(1),
             "+",
-            NumericExpression(
+            BinaryExpression(
                 IntegerLiteral(2),
                 "*",
                 IntegerLiteral(3),
@@ -99,24 +99,24 @@ def test_parse_numeric_expression_with_precedence():
     )
 
 
-def test_parse_numeric_expression_with_parenthesis():
-    result = ExpressionParser.numeric_expression.parse("(1 + 2) * 3")
+def test_parse_binary_expression_with_parenthesis():
+    result = ExpressionParser.expression.parse("(1 + 2) * 3")
 
     assert result == Success(
-        NumericExpression(
-            NumericExpression(IntegerLiteral(1), "+", IntegerLiteral(2)),
+        BinaryExpression(
+            BinaryExpression(IntegerLiteral(1), "+", IntegerLiteral(2)),
             "*",
             IntegerLiteral(3),
         ),
     )
 
 
-def test_another_expression():
-    result = ExpressionParser.numeric_expression.parse("3 - 2 - 1")
+def test_parse_chained_subtraction():
+    result = ExpressionParser.expression.parse("3 - 2 - 1")
 
     assert result == Success(
-        NumericExpression(
-            NumericExpression(
+        BinaryExpression(
+            BinaryExpression(
                 IntegerLiteral(3),
                 "-",
                 IntegerLiteral(2),
@@ -128,17 +128,17 @@ def test_another_expression():
 
 
 def test_comparison():
-    result = ExpressionParser.numeric_expression.parse("1 + 2 == 3 * 4")
+    result = ExpressionParser.expression.parse("1 + 2 == 3 * 4")
 
     assert result == Success(
-        NumericExpression(
-            NumericExpression(
+        BinaryExpression(
+            BinaryExpression(
                 IntegerLiteral(1),
                 "+",
                 IntegerLiteral(2),
             ),
             "==",
-            NumericExpression(
+            BinaryExpression(
                 IntegerLiteral(3),
                 "*",
                 IntegerLiteral(4),

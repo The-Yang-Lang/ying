@@ -23,7 +23,7 @@ class UnaryExpression:
     ) -> Union[
         IntegerLiteral,
         FloatLiteral,
-        NumericExpression,
+        BinaryExpression,
         UnaryExpression,
         BooleanLiteral,
     ]:
@@ -38,17 +38,17 @@ class UnaryExpression:
 
 
 @dataclass
-class NumericExpression:
-    lhs: Union[IntegerLiteral, FloatLiteral, NumericExpression]
+class BinaryExpression:
+    lhs: Union[IntegerLiteral, FloatLiteral, BinaryExpression]
     operator: str
-    rhs: Union[IntegerLiteral, FloatLiteral, NumericExpression]
+    rhs: Union[IntegerLiteral, FloatLiteral, BinaryExpression]
 
     @staticmethod
     def parse(args):
         expression = args[0]
 
         for op in args[1]:
-            expression = NumericExpression(expression, op[0], op[1])
+            expression = BinaryExpression(expression, op[0], op[1])
 
         return expression
 
@@ -60,5 +60,5 @@ type Expression = Union[
     IntegerLiteral,
     FloatLiteral,
     UnaryExpression,
-    NumericExpression,
+    BinaryExpression,
 ]
