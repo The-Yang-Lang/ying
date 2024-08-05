@@ -44,8 +44,14 @@ class ExpressionParser(ParserContext, whitespace=r"\s*"):
     comparsive_expression = (
         additive_expression
         & rep(
-            (CommonParser.strict_equal | CommonParser.strict_unequal | SpecialCharacterParser.angel_close |
-             SpecialCharacterParser.angel_open | CommonParser.greater_than_or_equal | CommonParser.less_than_or_equal)
+            (
+                CommonParser.strict_equal
+                | CommonParser.strict_unequal
+                | SpecialCharacterParser.angel_close
+                | SpecialCharacterParser.angel_open
+                | CommonParser.greater_than_or_equal
+                | CommonParser.less_than_or_equal
+            )
             & additive_expression
         )
     ) > NumericExpression.parse

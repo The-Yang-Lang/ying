@@ -17,8 +17,7 @@ class CommonParser(ParserContext, whitespace=r"\s*"):
     char = reg(r"'([a-zA-Z0-9]|\\[a-zA-Z])'") > CharLiteral.parse
     boolean = (lit("true") | lit("false")) > BooleanLiteral
     integer = reg(r"[0-9][0-9_]*") > IntegerLiteral.parse
-    hexadecimal_integer = reg(
-        r"0x[0-9A-Fa-f][0-9A-Fa-f_]*") > IntegerLiteral.parse
+    hexadecimal_integer = reg(r"0x[0-9A-Fa-f][0-9A-Fa-f_]*") > IntegerLiteral.parse
     octal_integer = reg(r"0o[0-7][0-7]*") > IntegerLiteral.parse
     float = reg(r"[0-9][0-9_]*\.[0-9][0-9_]*") > FloatLiteral.parse
 
