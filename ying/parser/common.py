@@ -1,4 +1,4 @@
-from parsita import ParserContext, fwd, lit, reg
+from parsita import ParserContext, lit, reg
 
 from ying.ast.literals import (
     BooleanLiteral,
@@ -24,10 +24,6 @@ class CommonParser(ParserContext, whitespace=r"\s*"):
     number = float | octal_integer | hexadecimal_integer | integer
 
     literal = string | char | boolean | number
-
-    expression = fwd()
-
-    expression.define(literal)
 
     # Comparison operators
 
