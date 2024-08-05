@@ -615,4 +615,38 @@ def test_inverted_false_literal():
     )
 
 
+def test_equals_expression():
+    result = StatementParser.variable_declaration.parse(
+        "var zero_equals_zero = 0 == 0;"
+    )
+
+    assert result == Success(
+        VariableDeclarationStatement(
+            "zero_equals_zero",
+            InferDataType(),
+            BinaryExpression(
+                IntegerLiteral(0),
+                "==",
+                IntegerLiteral(0),
+            ),
+        )
+    )
+
+
+def test_unequals_expression():
+    result = StatementParser.variable_declaration.parse("var zero_equals_one = 0 == 1;")
+
+    assert result == Success(
+        VariableDeclarationStatement(
+            "zero_equals_one",
+            InferDataType(),
+            BinaryExpression(
+                IntegerLiteral(0),
+                "==",
+                IntegerLiteral(1),
+            ),
+        )
+    )
+
+
 # endregion

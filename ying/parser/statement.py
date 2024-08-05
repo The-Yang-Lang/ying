@@ -110,5 +110,5 @@ class StatementParser(ParserContext, whitespace=r"\s*"):
         KeywordParser.kw_var >> CommonParser.identifier
         & opt(SpecialCharacterParser.colon >> DataTypeParser.data_type)
         << SpecialCharacterParser.equal_sign
-        & (ExpressionParser.additive_expression) << SpecialCharacterParser.semicolon
+        & (ExpressionParser.expression) << SpecialCharacterParser.semicolon
     ) > splat(VariableDeclarationStatement.parse)
