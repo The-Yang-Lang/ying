@@ -1,4 +1,4 @@
-from parsita import lit, ParserContext
+from parsita import ParserContext, lit
 
 
 class SpecialCharacterParser(ParserContext, whitespace=r"\s*"):
