@@ -5,6 +5,9 @@ class SpecialCharacterParser(ParserContext, whitespace=r"\s*"):
     parenthesis_open = lit("(")
     parenthesis_close = lit(")")
 
+    bracket_open = lit("[")
+    bracket_close = lit("]")
+
     curly_open = lit("{")
     curly_close = lit("}")
 
