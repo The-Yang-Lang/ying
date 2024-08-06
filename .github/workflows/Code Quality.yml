@@ -41,5 +41,3 @@ jobs:
                 verbose: true
               env:
                 CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-            - name: Check code coverage >= 90%
-              run: poetry run pytest --cov --cov-fail-under=90 -v

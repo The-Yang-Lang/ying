@@ -21,7 +21,7 @@ test:
 
 .PHONY: test-with-coverage
 test-with-coverage:
-	${POETRY_EXECUTABLE} run pytest --cov --cov-report=xml -v
+	${POETRY_EXECUTABLE} run pytest --cov --cov-report=xml --cov-fail-under=90 -v
 
 .PHONY: generate-html-coverage-report
 generate-html-coverage-report: test-with-coverage
