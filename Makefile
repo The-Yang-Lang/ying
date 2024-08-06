@@ -21,7 +21,7 @@ test:
 
 .PHONY: test-with-coverage
 test-with-coverage:
-	${POETRY_EXECUTABLE} run coverage run --source=./ying -m pytest --cov -v
+	${POETRY_EXECUTABLE} run coverage run --source=./ying -m pytest --cov --cov-report=xml -v
 
 .PHONY: generate-html-coverage-report
 generate-html-coverage-report: test-with-coverage
