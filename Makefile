@@ -19,6 +19,14 @@ watch:
 test:
 	${POETRY_EXECUTABLE} run pytest -v
 
+.PHONY: test-with-coverage
+test-with-coverage:
+	${POETRY_EXECUTABLE} run coverage run --source=./ying -m pytest -v
+
+.PHONY: generate-html-coverage-report
+generate-html-coverage-report: test-with-coverage
+	${POETRY_EXECUTABLE} run coverage html
+
 .PHONY: watch-tests-cmd
 watch-tests-cmd:
 	${POETRY_EXECUTABLE} run pytest -v --picked --parent-branch=master
