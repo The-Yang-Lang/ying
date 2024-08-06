@@ -12,3 +12,7 @@ examples/
 
 # Ignore ruff cache files
 .ruff_cache/
+
+# Ignore code coverage related files
+/.coverage
+/htmlcov/
