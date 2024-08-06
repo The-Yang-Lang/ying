@@ -30,6 +30,12 @@ jobs:
                   python -m pip install --upgrade pip poetry
                   poetry install
             - name: Test with pytest
-              run: poetry run pytest
+              run: make test-with-coverage
             - name: Check code format
               run: poetry run ruff check .
+            - name: Upload coverage to Codecov
+              uses: codecov/codecov-action@v4
+              with:
+                verbose: true
+              env:
+                CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
