@@ -39,7 +39,7 @@ jobs:
               uses: codecov/codecov-action@v4
               with:
                 disable_search: true
-                file: "./coverage.xml"
+                file: "./.coverage"
                 verbose: true
               env:
                 CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
