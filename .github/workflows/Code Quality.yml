@@ -33,10 +33,13 @@ jobs:
               run: make test-with-coverage
             - name: Check code format
               run: poetry run ruff check .
+            - name: Process coverage report
+              run: poetry run coverage xml
             - name: Upload coverage to Codecov
               uses: codecov/codecov-action@v4
               with:
-                file: "./.coverage"
+                disable_search: true
+                file: "./coverage.xml"
                 verbose: true
               env:
                 CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
