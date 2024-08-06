@@ -16,4 +16,3 @@ examples/
 # Ignore code coverage related files
 /.coverage
 /htmlcov/
-coverage.xml
