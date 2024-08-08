@@ -67,8 +67,16 @@ class ProjectConfiguration:
             path (Path): The starting path
 
         Returns:
-            Optional[Path]: The found path or "None" if no directory contains the project configuration file.
+            Optional[Path]: The found file path or "None" if no directory contains the project configuration file.
         """
+
+        project_configuration_file_path = path / DEFAULT_PROJECT_CONFIGURATION_FILE_NAME
+
+        if (
+            project_configuration_file_path.exists()
+            and project_configuration_file_path.is_file()
+        ):
+            return project_configuration_file_path
 
         for parent in path.parents:
             project_configuration_file_path = (
@@ -78,7 +86,7 @@ class ProjectConfiguration:
             if not project_configuration_file_path.exists():
                 continue
 
-            return parent
+            return project_configuration_file_path
 
         return None
 
