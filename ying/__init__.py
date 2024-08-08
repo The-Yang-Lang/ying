@@ -8,6 +8,7 @@ from rich.logging import RichHandler
 from ying.cli import CliApplication, CliCommand
 from ying.commands.DoctorCommand import DoctorCommand
 from ying.commands.InitCommand import InitCommand
+from ying.shared.utils import get_ying_version
 
 
 class Application(CliApplication):
@@ -15,7 +16,7 @@ class Application(CliApplication):
         return "ying"
 
     def get_version(self) -> Optional[str]:
-        return "0.0.0"
+        return get_ying_version()
 
     def get_description(self) -> Optional[str]:
         return None
