@@ -105,13 +105,13 @@ class ProjectConfiguration:
             parsed_file_contents = json.loads(raw_file_contents)
 
             return ProjectConfiguration(
-                project_type=ProjectType(parsed_file_contents.type),
-                name=parsed_file_contents.name,
-                description=parsed_file_contents.description,
-                version=parsed_file_contents.version,
-                license=parsed_file_contents.license,
-                entrypoint=parsed_file_contents.entrypoint,
-                scripts=parsed_file_contents.scripts,
+                project_type=ProjectType(parsed_file_contents["type"]),
+                name=parsed_file_contents["name"],
+                description=parsed_file_contents["description"],
+                version=parsed_file_contents["version"],
+                license=parsed_file_contents["license"],
+                entrypoint=parsed_file_contents["entrypoint"],
+                scripts=parsed_file_contents["scripts"],
             )
         except Exception:
             return None
