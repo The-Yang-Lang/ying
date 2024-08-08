@@ -33,7 +33,7 @@ class ProjectConfiguration:
     def write(
         self,
         path: Path,
-    ):
+    ) -> None:
         """Writes the current project configuration to the given path
 
         Args:
@@ -83,7 +83,7 @@ class ProjectConfiguration:
         return None
 
     @staticmethod
-    def read_from_file(path: Path) -> ProjectConfiguration:
+    def read_from_file(path: Path) -> Optional[ProjectConfiguration]:
         """Tries to read the project configuration file from the given path.
 
         Returns:
