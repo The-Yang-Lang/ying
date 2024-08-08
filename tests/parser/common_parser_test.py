@@ -115,12 +115,14 @@ def test_parse_true_as_boolean():
     result = CommonParser.boolean.parse("true")
 
     assert result == Success(BooleanLiteral("true"))
+    assert result.unwrap().is_truthy()
 
 
 def test_parse_false_as_boolean():
     result = CommonParser.boolean.parse("false")
 
     assert result == Success(BooleanLiteral("false"))
+    assert result.unwrap().is_falsy()
 
 
 # endregion

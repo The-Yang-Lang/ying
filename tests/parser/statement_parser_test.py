@@ -654,13 +654,15 @@ def test_unequals_expression():
     )
 
 
-def nested_access_variable_declaration():
-    result = StatementParser.variable_declaration.parse("var user_id = user.id;")
+def test_nested_access_variable_declaration():
+    result = StatementParser.variable_declaration.parse(
+        "var user_id: string = user.id;"
+    )
 
     assert result == Success(
         VariableDeclarationStatement(
             "user_id",
-            InferDataType(),
+            DataType("string", []),
             NestedAccessExpression(
                 "user",
                 [

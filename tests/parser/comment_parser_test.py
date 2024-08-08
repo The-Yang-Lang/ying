@@ -27,6 +27,7 @@ def test_multi_line_comment_on_single_line():
     result = CommentParser.multi_line_comment.parse("/* unit test */")
 
     assert result == Success(MultiLineComment(["/* unit test */"]))
+    assert not result.unwrap().uses_multiple_lines()
 
 
 def test_multi_line_comment_on_multi_line_without_asterisks():
@@ -38,6 +39,7 @@ def test_multi_line_comment_on_multi_line_without_asterisks():
     )
 
     assert result == Success(MultiLineComment(["/*", "unit test", "*/"]))
+    assert result.unwrap().uses_multiple_lines()
 
 
 def test_multi_line_comment_on_multi_line_with_asterisks():
