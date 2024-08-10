@@ -25,7 +25,7 @@ test-with-coverage:
 
 .PHONY: generate-html-coverage-report
 generate-html-coverage-report: test-with-coverage
-	${POETRY_EXECUTABLE} run coverage html
+	${POETRY_EXECUTABLE} run pytest --cov --cov-report=html --cov-fail-under=90 -v
 
 .PHONY: watch-tests-cmd
 watch-tests-cmd:
