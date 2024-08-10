@@ -26,3 +26,8 @@ generate-html-coverage-report:
 .PHONY: watch-tests
 watch-tests:
 	${NODEMON_EXECUTABLE} ${DEFAULT_NODEMON_ARGS} -x "make clear test || exit 1"
+
+.PHONY: ci
+ci:
+	${POETRY_EXECUTABLE} run pytest -v --cov --cov-report=xml --cov-fail-under=90
+	${POETRY_EXECUTABLE} run ruff check .
