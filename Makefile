@@ -29,7 +29,7 @@ generate-html-coverage-report: test-with-coverage
 
 .PHONY: watch-tests-cmd
 watch-tests-cmd:
-	${POETRY_EXECUTABLE} run pytest -v --picked --parent-branch=master
+	${POETRY_EXECUTABLE} run pytest -v --cov --cov-fail-under=90
 
 .PHONY: watch-tests
 watch-tests:
