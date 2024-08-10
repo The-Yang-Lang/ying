@@ -17,20 +17,12 @@ watch:
 
 .PHONY: test
 test:
-	${POETRY_EXECUTABLE} run pytest -v
-
-.PHONY: test-with-coverage
-test-with-coverage:
-	${POETRY_EXECUTABLE} run pytest --cov --cov-report=xml --cov-fail-under=90 -v
+	${POETRY_EXECUTABLE} run pytest -v --cov --cov-fail-under=90
 
 .PHONY: generate-html-coverage-report
-generate-html-coverage-report: test-with-coverage
-	${POETRY_EXECUTABLE} run pytest --cov --cov-report=html --cov-fail-under=90 -v
-
-.PHONY: watch-tests-cmd
-watch-tests-cmd:
-	${POETRY_EXECUTABLE} run pytest -v --cov --cov-fail-under=90
+generate-html-coverage-report:
+	${POETRY_EXECUTABLE} run pytest -v --cov --cov-report=html --cov-fail-under=90
 
 .PHONY: watch-tests
 watch-tests:
-	${NODEMON_EXECUTABLE} ${DEFAULT_NODEMON_ARGS} -x "make clear watch-tests-cmd || exit 1"
+	${NODEMON_EXECUTABLE} ${DEFAULT_NODEMON_ARGS} -x "make clear test || exit 1"
