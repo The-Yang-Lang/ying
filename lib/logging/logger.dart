@@ -18,11 +18,6 @@ class Logger {
   /// - `["Unit", "Test"]` -> `"[Unit] [Test]"`
   List<String> nameParts;
 
-  /// Contains the length of the longest LogLevel name
-  ///
-  /// This is used for padding the `LogLevel` when a message gets printed.
-  static final int _levelPadding = LogLevel.getLengthOfLongestName();
-
   /// The mapping for each `LogLevel` to an `AnsiColor`
   final Map<LogLevel, AnsiColor> _levelColors = {
     LogLevel.error: AnsiColor.red,
@@ -32,22 +27,20 @@ class Logger {
     LogLevel.trace: AnsiColor.magenta,
   };
 
-  /// Instantiates a new `Logger` based on the given name parts.
-  ///
-  /// The current `LogLevel` is determined by the `getLogLevelFromEnvironment`
-  /// function.
-  Logger(this.nameParts) : currentLevel = getLogLevelFromEnvironment(null);
+  /// Instantiates a new `Logger` based on the given name parts and `LogLevel`.
+  Logger(this.nameParts, this.currentLevel);
 
   /// Instantiates a new `Logger` with the given name.
   ///
   /// The current `LogLevel` is determined by the `getLogLevelFromEnvironment`
   /// function.
-  Logger.withName(String name)
+  Logger.withSimpleName(String name, this.currentLevel) : nameParts = [name];
+
+  /// Instantiates a new `Logger` with the given name where the `LogLevel` is
+  /// determined by the `getLogLevelFromEnvironment` function.
+  Logger.withSimpleNameFromEnv(String name)
       : nameParts = [name],
         currentLevel = getLogLevelFromEnvironment(null);
-
-  /// Instantiates a new `Logger` with the given `LogLevel` and name parts.
-  Logger.withLevel(this.currentLevel, this.nameParts);
 
   /// Logs the given message with `LogLevel.error` as level
   void error(String message) => _log(LogLevel.error, message);
@@ -71,7 +64,7 @@ class Logger {
   ///
   /// Otherwise it uses the `LogLevel` of the current instance.
   Logger extend(String name, {LogLevel? newLevel}) {
-    return Logger.withLevel(newLevel ?? currentLevel, [...nameParts, name]);
+    return Logger([...nameParts, name], newLevel ?? currentLevel);
   }
 
   /// Returns a `String` representation of the current instance
@@ -92,11 +85,11 @@ class Logger {
 
     if (Platform.isLinux || Platform.isMacOS) {
       print(
-        "$color$timestamp [${level.name.toUpperCase().padRight(_levelPadding)}] $joinedNameParts $message$reset",
+        "$color$timestamp [${level.name.toUpperCase().padRight(levelPadding)}] $joinedNameParts $message$reset",
       );
     } else {
       print(
-        "$timestamp [${level.name.toUpperCase().padRight(_levelPadding)}] $joinedNameParts $message",
+        "$timestamp [${level.name.toUpperCase().padRight(levelPadding)}] $joinedNameParts $message",
       );
     }
   }

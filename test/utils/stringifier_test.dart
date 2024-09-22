@@ -20,7 +20,7 @@ void main() {
       (LogLevel.info, "LogLevel.info"),
       (AnsiColor.reset, "AnsiColor()"),
       (
-        Logger.withLevel(LogLevel.info, ["test"]),
+        Logger.withSimpleName("test", LogLevel.info),
         "Logger(\n    currentLevel: LogLevel.info,\n    nameParts: [\n        \"test\",\n    ]\n)"
       )
     ];

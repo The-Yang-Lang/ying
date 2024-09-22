@@ -8,14 +8,12 @@ enum LogLevel {
   info,
   debug,
   trace;
-
-  /// Returns the longest string length of all `LogLevel`s
-  static int getLengthOfLongestName() {
-    return LogLevel.values
-        .map((entry) => entry.name)
-        .fold(0, (acc, entry) => max(acc, entry.length));
-  }
 }
+
+/// Contains the longest string length of all `LogLevel`s
+final int levelPadding = LogLevel.values
+    .map((entry) => entry.name)
+    .fold(0, (acc, entry) => max(acc, entry.length));
 
 /// Returns the `LogLevel` based on the environment variables.
 ///
