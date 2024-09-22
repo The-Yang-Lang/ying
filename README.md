@@ -1,2 +1,5 @@
-A sample command-line application with an entrypoint in `bin/`, library code
-in `lib/`, and example unit test in `test/`.
+# Ying - The official package manager for the Yang language
+
+## Contributing to the project
+
+Please see [./CONTRIBUTING.md](./CONTRIBUTING.md) for further instructions.
