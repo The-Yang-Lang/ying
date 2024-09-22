@@ -2,8 +2,8 @@ import 'dart:mirrors';
 
 /// A class which defines static methods in order to stringify values.
 ///
-/// These could either be primitive types (like String, int, double, num, bool)
-/// or complex types like classes.
+/// These could either be primitive types (like `String`, `int`, `double`,
+/// `num`, `bool`) or complex types like classes.
 class Stringifier {
   /// Returns a string representation of the given indentation.
   static String _stringifyIndentation(int indentation) {
