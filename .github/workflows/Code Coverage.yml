@@ -9,7 +9,7 @@ permissions:
     contents: read
 
 jobs:
-    code-quality:
+    code-coverage:
         runs-on: ubuntu-latest
         strategy:
             matrix:
