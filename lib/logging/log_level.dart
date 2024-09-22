@@ -3,6 +3,7 @@ import 'dart:math';
 
 /// Defines all possible log levels
 enum LogLevel {
+  none,
   error,
   warn,
   info,
@@ -42,6 +43,9 @@ LogLevel getLogLevelFromEnvironment(Map<String, String>? environmentVariables) {
 
     case "error":
       return LogLevel.error;
+
+    case "none":
+      return LogLevel.none;
 
     default:
       return LogLevel.info;

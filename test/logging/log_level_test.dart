@@ -23,6 +23,7 @@ void main() {
   test('getLogLevelFromEnvironment returns the correctly matched LogLevel', () {
     var cases = [
       // uppercased values
+      ("NONE", LogLevel.none),
       ("ERROR", LogLevel.error),
       ("WARN", LogLevel.warn),
       ("INFO", LogLevel.info),
@@ -30,6 +31,7 @@ void main() {
       ("TRACE", LogLevel.trace),
 
       // Lowercased values
+      ("none", LogLevel.none),
       ("error", LogLevel.error),
       ("warn", LogLevel.warn),
       ("info", LogLevel.info),
