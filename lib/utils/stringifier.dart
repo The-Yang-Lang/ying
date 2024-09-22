@@ -51,8 +51,9 @@ class Stringifier {
 
     Map<String, dynamic> fields = {};
 
-    var variableDeclarations =
-        classMirror.declarations.values.whereType<VariableMirror>();
+    var variableDeclarations = classMirror.declarations.values
+        .whereType<VariableMirror>()
+        .where((entry) => entry.isStatic == false && entry.isFinal == false);
 
     for (var declaredValue in variableDeclarations) {
       var name = MirrorSystem.getName(declaredValue.simpleName);
