@@ -1,5 +1,0 @@
-[run]
-omit = 
-    tests/**
-    ying/__init__.py
-    ying/commands/**

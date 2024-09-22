@@ -1,3 +1,2 @@
-# Ying - The official package manager for the Yang language
-
-[![codecov](https://codecov.io/github/The-Yang-Lang/ying/branch/master/graph/badge.svg?token=O6C8WRIRPP)](https://codecov.io/github/The-Yang-Lang/ying)
+A sample command-line application with an entrypoint in `bin/`, library code
+in `lib/`, and example unit test in `test/`.
