@@ -1,0 +1,32 @@
+name: Code coverage
+
+on:
+    push:
+        branches: ['master']
+    pull_request:
+        branches: ['master']
+
+permissions:
+    contents: read
+
+jobs:
+    code-quality:
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                python-version: ['3.12']
+
+        steps:
+            - uses: actions/checkout@v4
+            - uses: dart-lang/setup-dart@v1
+            - run: dart pub get
+            - run: dart pub global activate coverage
+            - run: dart pub global run coverage:test_with_coverage --function-coverage --branch-coverage
+            - name: Upload coverage to Codecov
+              uses: codecov/codecov-action@v4
+              with:
+                  disable_search: true
+                  file: './coverage/lcov.info'
+                  verbose: true
+              env:
+                  CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
