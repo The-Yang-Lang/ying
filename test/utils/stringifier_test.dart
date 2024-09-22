@@ -1,6 +1,7 @@
 import 'package:test/test.dart';
 import 'package:ying/logging/ansi_color.dart';
 import 'package:ying/logging/log_level.dart';
+import 'package:ying/logging/logger.dart';
 import 'package:ying/utils/stringifier.dart';
 
 void main() {
@@ -18,6 +19,10 @@ void main() {
       ((1, 2), "(1, 2)"),
       (LogLevel.info, "LogLevel.info"),
       (AnsiColor.reset, "AnsiColor()"),
+      (
+        Logger.withLevel(LogLevel.info, ["test"]),
+        "Logger(\n    currentLevel: LogLevel.info,\n    nameParts: [\n        \"test\",\n    ]\n)"
+      )
     ];
 
     for (var (input, expected) in cases) {
