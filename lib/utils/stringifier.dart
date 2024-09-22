@@ -93,6 +93,10 @@ class Stringifier {
     dynamic valueToStringify, {
     int indentation = 0,
   }) {
+    if (valueToStringify == null) {
+      return "null";
+    }
+
     if (valueToStringify is String) {
       var quotedString = valueToStringify.replaceAll('"', '\\"');
 
