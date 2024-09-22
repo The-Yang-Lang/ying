@@ -21,7 +21,7 @@ class Logger {
   /// Contains the length of the longest LogLevel name
   ///
   /// This is used for padding the `LogLevel` when a message gets printed.
-  static int levelPadding = LogLevel.getLengthOfLongestName();
+  static final int _levelPadding = LogLevel.getLengthOfLongestName();
 
   /// The mapping for each `LogLevel` to an `AnsiColor`
   final Map<LogLevel, AnsiColor> _levelColors = {
@@ -92,11 +92,11 @@ class Logger {
 
     if (Platform.isLinux || Platform.isMacOS) {
       print(
-        "$color$timestamp [${level.name.toUpperCase().padRight(levelPadding)}] $joinedNameParts $message$reset",
+        "$color$timestamp [${level.name.toUpperCase().padRight(_levelPadding)}] $joinedNameParts $message$reset",
       );
     } else {
       print(
-        "$timestamp [${level.name.toUpperCase().padRight(levelPadding)}] $joinedNameParts $message",
+        "$timestamp [${level.name.toUpperCase().padRight(_levelPadding)}] $joinedNameParts $message",
       );
     }
   }
