@@ -104,6 +104,10 @@ class Stringifier {
     }
 
     if (valueToStringify is List) {
+      if (valueToStringify.isEmpty) {
+        return "[]";
+      }
+
       return _stringifyIteratable(
         valueToStringify,
         "[",
@@ -113,6 +117,10 @@ class Stringifier {
     }
 
     if (valueToStringify is Set) {
+      if (valueToStringify.isEmpty) {
+        return "{}";
+      }
+
       return _stringifyIteratable(
         valueToStringify,
         "{",
@@ -126,6 +134,10 @@ class Stringifier {
     }
 
     if (valueToStringify is Map) {
+      if (valueToStringify.isEmpty) {
+        return "{}";
+      }
+
       return _stringifyIteratable(
         valueToStringify.entries,
         "{",
