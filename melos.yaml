@@ -17,6 +17,9 @@ scripts:
     test:
         exec: dart test .
 
+    test-with-coverage:
+        exec: dart pub global run coverage:test_with_coverage --function-coverage --branch-coverage
+
     format-ci:
         exec: dart format --output=none --set-exit-if-changed .
 
