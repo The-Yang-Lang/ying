@@ -11,6 +11,7 @@ jobs:
         steps:
             - uses: actions/checkout@v4
             - uses: dart-lang/setup-dart@v1
+            - run: dart pub global activate melos
             - run: dart pub get
-            - run: dart run melos bootstrap
-            - run: dart run melos ci
+            - run: melos bootstrap
+            - run: melos ci

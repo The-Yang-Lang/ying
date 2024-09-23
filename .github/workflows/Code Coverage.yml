@@ -18,10 +18,11 @@ jobs:
         steps:
             - uses: actions/checkout@v4
             - uses: dart-lang/setup-dart@v1
-            - run: dart pub get
+            - run: dart pub global activate melos
             - run: dart pub global activate coverage
-            - run: dart run melos bootstrap
-            - run: dart run melos run test-with-coverage
+            - run: dart pub get
+            - run: melos bootstrap
+            - run: melos run test-with-coverage
             - name: Upload coverage to Codecov
               uses: codecov/codecov-action@v4
               with:
