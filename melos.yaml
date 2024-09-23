@@ -7,6 +7,10 @@ packages:
 ide:
     intellij: false
 
+categories:
+  testable:
+      - packages/ying-shared
+
 scripts:
     analyze:
         exec: dart analyze .
@@ -15,10 +19,10 @@ scripts:
         exec: dart format .
 
     test:
-        exec: dart test .
+        run: melos exec --category="testable" "dart test ."
 
     test-with-coverage:
-        exec: dart pub global run coverage:test_with_coverage --function-coverage --branch-coverage
+        run: melos exec --concurrency 1 --category="testable" "dart pub global run coverage:test_with_coverage --function-coverage --branch-coverage"
 
     format-ci:
         exec: dart format --output=none --set-exit-if-changed .
