@@ -12,6 +12,5 @@ jobs:
             - uses: actions/checkout@v4
             - uses: dart-lang/setup-dart@v1
             - run: dart pub get
-            - run: dart format --output=none --set-exit-if-changed .
-            - run: dart analyze
-            - run: dart test
+            - run: dart run melos bootstrap
+            - run: dart run melos ci
