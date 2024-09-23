@@ -11,7 +11,7 @@ void main() {
 
   group('getLogLevelFromEnvironment', () {
     test('returns the info level when the environment variable is not set', () {
-      var result = getLogLevelFromEnvironment({});
+      var result = getLogLevelFromEnvironment(null);
 
       expect(result, LogLevel.info);
     });
