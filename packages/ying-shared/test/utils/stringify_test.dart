@@ -34,4 +34,11 @@ void main() {
       );
     }
   });
+
+  test(
+    'stringifyInstance should return the class name when an empty map of fields are provided',
+    () {
+      expect(stringifyInstance("Logger", {}), "Logger()");
+    },
+  );
 }
