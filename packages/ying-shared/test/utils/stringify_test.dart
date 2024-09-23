@@ -7,11 +7,13 @@ import 'package:ying_shared/utils/stringify.dart';
 void main() {
   test('stringify should correctly stringify the value', () {
     var cases = [
+      (null, "null"),
       ("test", '"test"'),
       (42, "42"),
       (13.37, "13.37"),
       (true, "true"),
       (false, "false"),
+      ([], "[]"),
       ([1, 2, 3], '[\n    1,\n    2,\n    3,\n]'),
       ({1, 2, 3}, '{\n    1,\n    2,\n    3,\n}'),
       ({"key": "value"}, '{\n    "key": "value",\n}'),
