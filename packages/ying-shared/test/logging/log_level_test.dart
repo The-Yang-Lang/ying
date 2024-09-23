@@ -2,6 +2,13 @@ import 'package:test/test.dart';
 import 'package:ying_shared/logging/log_level.dart';
 
 void main() {
+  test(
+    'the levelPadding should determine correctly the longest entry of the log levels',
+    () {
+      expect(levelPadding, 5);
+    },
+  );
+
   group('getLogLevelFromEnvironment', () {
     test('returns the info level when the environment variable is not set', () {
       var result = getLogLevelFromEnvironment({});
