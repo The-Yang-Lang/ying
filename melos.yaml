@@ -24,4 +24,4 @@ scripts:
         exec: dart format --output=none --set-exit-if-changed .
 
     ci:
-        exec: melos run format-ci && melos run analyze && melos run test
+        exec: dart run melos run format-ci && dart run melos run analyze && dart run melos run test
