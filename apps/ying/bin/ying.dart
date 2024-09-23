@@ -1,5 +1,5 @@
-import 'package:ying/logging/logger.dart';
-import 'package:ying/utils/stringifier.dart';
+import 'package:ying_shared/logging/logger.dart';
+import 'package:ying_shared/utils/stringifier.dart';
 
 void main(List<String> arguments) {
   var logger = Logger.withSimpleNameFromEnv("Main");

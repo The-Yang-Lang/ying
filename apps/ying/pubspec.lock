@@ -398,5 +398,12 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.2"
+  ying_shared:
+    dependency: "direct main"
+    description:
+      path: "../../packages/ying-shared"
+      relative: true
+    source: path
+    version: "1.0.0"
 sdks:
   dart: ">=3.5.1 <4.0.0"

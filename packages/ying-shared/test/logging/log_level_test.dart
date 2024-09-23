@@ -1,5 +1,5 @@
 import 'package:test/test.dart';
-import 'package:ying/logging/log_level.dart';
+import 'package:ying_shared/logging/log_level.dart';
 
 void main() {
   group('getLogLevelFromEnvironment', () {

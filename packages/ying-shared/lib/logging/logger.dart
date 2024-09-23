@@ -1,8 +1,8 @@
 import 'dart:io';
 
-import 'package:ying/logging/ansi_color.dart';
-import 'package:ying/logging/log_level.dart';
-import 'package:ying/utils/stringifier.dart';
+import 'package:ying_shared/logging/ansi_color.dart';
+import 'package:ying_shared/logging/log_level.dart';
+import 'package:ying_shared/utils/stringifier.dart';
 
 class Logger {
   /// The current `LogLevel` of the logger.
