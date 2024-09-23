@@ -20,12 +20,13 @@ jobs:
             - uses: dart-lang/setup-dart@v1
             - run: dart pub get
             - run: dart pub global activate coverage
-            - run: dart pub global run coverage:test_with_coverage --function-coverage --branch-coverage
+            - run: dart run melos bootstrap
+            - run: dart run melos run test-with-coverage
             - name: Upload coverage to Codecov
               uses: codecov/codecov-action@v4
               with:
                   disable_search: true
-                  file: './coverage/lcov.info'
+                  files: './apps/ying/coverage/lcov.info'
                   verbose: true
               env:
                   CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
