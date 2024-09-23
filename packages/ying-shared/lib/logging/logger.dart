@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:ying_shared/logging/ansi_color.dart';
 import 'package:ying_shared/logging/log_level.dart';
-import 'package:ying_shared/utils/stringifier.dart';
+import 'package:ying_shared/utils/stringify.dart';
 
 class Logger {
   /// The current `LogLevel` of the logger.
@@ -69,7 +69,10 @@ class Logger {
 
   /// Returns a `String` representation of the current instance
   @override
-  String toString() => Stringifier.stringify(this);
+  String toString() => stringifyInstance("Logger", {
+        "currentLevel": currentLevel,
+        "nameParts": nameParts,
+      });
 
   /// The utility method for printing log messages.
   void _log(LogLevel level, String message) {

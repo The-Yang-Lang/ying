@@ -2,7 +2,7 @@ import 'package:test/test.dart';
 import 'package:ying_shared/logging/ansi_color.dart';
 import 'package:ying_shared/logging/log_level.dart';
 import 'package:ying_shared/logging/logger.dart';
-import 'package:ying_shared/utils/stringifier.dart';
+import 'package:ying_shared/utils/stringify.dart';
 
 void main() {
   test('stringify should correctly stringify the value', () {
@@ -18,7 +18,7 @@ void main() {
       (MapEntry("key", "value"), '"key": "value"'),
       ((1, 2), "(1, 2)"),
       (LogLevel.info, "LogLevel.info"),
-      (AnsiColor.reset, "AnsiColor()"),
+      (AnsiColor.reset, "\x1B[0m"),
       (
         Logger.withSimpleName("test", LogLevel.info),
         "Logger(\n    currentLevel: LogLevel.info,\n    nameParts: [\n        \"test\",\n    ]\n)"
@@ -27,7 +27,7 @@ void main() {
 
     for (var (input, expected) in cases) {
       expect(
-        Stringifier.stringify(input),
+        stringify(input),
         expected,
       );
     }
