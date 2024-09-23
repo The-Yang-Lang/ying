@@ -1,0 +1,24 @@
+name: ying
+
+packages:
+    - apps/**
+    - packages/**
+
+ide:
+    intellij: false
+
+scripts:
+    analyze:
+        exec: dart analyze .
+
+    format:
+        exec: dart format .
+
+    test:
+        exec: dart test .
+
+    format-ci:
+        exec: dart format --output=none --set-exit-if-changed .
+
+    ci:
+        exec: melos run format-ci && melos run analyze && melos run test
