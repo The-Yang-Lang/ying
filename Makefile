@@ -4,7 +4,7 @@ MELOS_EXECUTABLE=melos
 YING_ENTRYPOINT=./apps/ying/bin/ying.dart
 
 NODEMON_EXECUTABLE=npx nodemon
-NODEMON_DEFAULT_ARGS=-w ./bin/ -w ./lib/ -e dart
+NODEMON_DEFAULT_ARGS=-w ./apps -w ./packages -e dart
 
 .PHONY: clear
 clear:
@@ -24,4 +24,4 @@ watch:
 
 .PHONY: watch-tests
 watch-tests:
-	${NODEMON_EXECUTABLE} ${NODEMON_DEFAULT_ARGS} -w ./test/ -x "make clear test || exit 1"
+	${NODEMON_EXECUTABLE} ${NODEMON_DEFAULT_ARGS} -x "make clear test || exit 1"
