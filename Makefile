@@ -1,5 +1,7 @@
 DART_EXECUTABLE=dart
-MAIN_ENTRYPOINT=./bin/ying.dart
+MELOS_EXECUTABLE=melos
+
+YING_ENTRYPOINT=./apps/ying/bin/ying.dart
 
 NODEMON_EXECUTABLE=npx nodemon
 NODEMON_DEFAULT_ARGS=-w ./bin/ -w ./lib/ -e dart
@@ -10,11 +12,11 @@ clear:
 
 .PHONY: run
 run:
-	${DART_EXECUTABLE} run ${MAIN_ENTRYPOINT}
+	${DART_EXECUTABLE} run ${YING_ENTRYPOINT}
 
 .PHONY: test
 test:
-	${DART_EXECUTABLE} test
+	${MELOS_EXECUTABLE} run test
 
 .PHONY: watch
 watch:
