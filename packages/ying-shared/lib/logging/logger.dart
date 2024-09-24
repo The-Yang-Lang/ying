@@ -86,7 +86,7 @@ class Logger {
     var timestamp = _getFormattedTimestamp();
     var joinedNameParts = nameParts.map((entry) => "[$entry]").join(" ");
 
-    if (Platform.isLinux || Platform.isMacOS) {
+    if (stdout.supportsAnsiEscapes) {
       print(
         "$color$timestamp [${level.name.toUpperCase().padRight(levelPadding)}] $joinedNameParts $message$reset",
       );
