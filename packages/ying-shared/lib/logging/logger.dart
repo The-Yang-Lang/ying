@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:clock/clock.dart';
 import 'package:ying_shared/logging/ansi_color.dart';
 import 'package:ying_shared/logging/log_level.dart';
 import 'package:ying_shared/utils/stringify.dart';
@@ -99,7 +100,7 @@ class Logger {
 
   /// Returns the formatted timestamp
   String _getFormattedTimestamp() {
-    var timestamp = DateTime.now();
+    var timestamp = clock.now();
 
     var date = [
       _padNumber(timestamp.day),
