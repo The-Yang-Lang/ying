@@ -6,7 +6,7 @@ import 'package:ying_shared/utils/stringify.dart';
 
 void main() {
   test('stringify should correctly stringify the value', () {
-    var cases = [
+    final cases = [
       (null, "null"),
       ("test", '"test"'),
       (42, "42"),
@@ -27,7 +27,7 @@ void main() {
       )
     ];
 
-    for (var (input, expected) in cases) {
+    for (final (input, expected) in cases) {
       expect(
         stringify(input),
         expected,

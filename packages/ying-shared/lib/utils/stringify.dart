@@ -21,13 +21,13 @@ String _stringifyIteratable(
     return "$openingCharacter$closingCharacter";
   }
 
-  var valueIndentation = indentation + 1;
+  final valueIndentation = indentation + 1;
 
-  var joinedValues = value
+  final joinedValues = value
       .map((entry) => stringify(entry, indentation: valueIndentation))
       .join(",\n${_stringifyIndentation(valueIndentation)}");
 
-  var valuesString = _stringifyIndentation(valueIndentation) + joinedValues;
+  final valuesString = _stringifyIndentation(valueIndentation) + joinedValues;
 
   return "$openingCharacter\n$valuesString,\n${_stringifyIndentation(indentation)}$closingCharacter";
 }
@@ -45,11 +45,11 @@ String stringifyInstance(
   Map<String, dynamic> fields, {
   int indentation = 0,
 }) {
-  var valueIndentation = indentation + 1;
+  final valueIndentation = indentation + 1;
 
-  var stringifiedFields = fields.entries.map((entry) {
-    var key = entry.key;
-    var stringifiedValue = stringify(
+  final stringifiedFields = fields.entries.map((entry) {
+    final key = entry.key;
+    final stringifiedValue = stringify(
       entry.value,
       indentation: valueIndentation,
     );
@@ -89,7 +89,7 @@ String stringify(
   }
 
   if (valueToStringify is String) {
-    var quotedString = valueToStringify.replaceAll('"', '\\"');
+    final quotedString = valueToStringify.replaceAll('"', '\\"');
 
     return '"$quotedString"';
   }

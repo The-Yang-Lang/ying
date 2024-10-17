@@ -11,13 +11,13 @@ void main() {
 
   group('getLogLevelFromEnvironment', () {
     test('returns the info level when the environment variable is not set', () {
-      var result = getLogLevelFromEnvironment(null);
+      final result = getLogLevelFromEnvironment(null);
 
       expect(result, LogLevel.info);
     });
 
     test('return the info level when no LogLevel was matched', () {
-      var result = getLogLevelFromEnvironment(
+      final result = getLogLevelFromEnvironment(
         {"LOG_LEVEL": "gibberish"},
       );
 
@@ -25,7 +25,7 @@ void main() {
     });
 
     test('return the correctly matched LogLevel', () {
-      var cases = [
+      final cases = [
         // uppercased values
         ("NONE", LogLevel.none),
         ("ERROR", LogLevel.error),
@@ -43,8 +43,8 @@ void main() {
         ("trace", LogLevel.trace),
       ];
 
-      for (var (environmentVariableValue, expectedLogLevel) in cases) {
-        var result = getLogLevelFromEnvironment(
+      for (final (environmentVariableValue, expectedLogLevel) in cases) {
+        final result = getLogLevelFromEnvironment(
           {"LOG_LEVEL": environmentVariableValue},
         );
 

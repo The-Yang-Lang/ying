@@ -23,7 +23,7 @@ void main() {
   });
 
   test('AnsiColor should return the correct escape sequence', () {
-    var cases = [
+    final cases = [
       (AnsiColor.reset, "\u001b[0m"),
       (AnsiColor.red, "\u001b[31m"),
       (AnsiColor.yellow, "\u001b[33m"),
@@ -31,7 +31,7 @@ void main() {
       (AnsiColor.cyan, "\u001b[36m"),
     ];
 
-    for (var testCase in cases) {
+    for (final testCase in cases) {
       expect(testCase.$1.toString(), testCase.$2);
     }
   });

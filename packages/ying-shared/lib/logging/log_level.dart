@@ -26,7 +26,7 @@ final int levelPadding = LogLevel.values
 /// When a `Map<String, String>` instead of null is passed to the function then
 /// this value will be used for the lookup.
 LogLevel getLogLevelFromEnvironment(Map<String, String>? environmentVariables) {
-  var mapToWorkWith = environmentVariables ?? Platform.environment;
+  final mapToWorkWith = environmentVariables ?? Platform.environment;
 
   switch (mapToWorkWith["LOG_LEVEL"]?.toLowerCase().trim()) {
     case "trace":

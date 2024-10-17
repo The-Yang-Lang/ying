@@ -81,11 +81,11 @@ class Logger {
       return;
     }
 
-    var color = _levelColors[level];
-    var reset = AnsiColor.reset;
+    final color = _levelColors[level];
+    final reset = AnsiColor.reset;
 
-    var timestamp = _getFormattedTimestamp();
-    var joinedNameParts = nameParts.map((entry) => "[$entry]").join(" ");
+    final timestamp = _getFormattedTimestamp();
+    final joinedNameParts = nameParts.map((entry) => "[$entry]").join(" ");
 
     if (stdout.supportsAnsiEscapes) {
       print(
@@ -100,15 +100,15 @@ class Logger {
 
   /// Returns the formatted timestamp
   String _getFormattedTimestamp() {
-    var timestamp = clock.now();
+    final timestamp = clock.now();
 
-    var date = [
+    final date = [
       _padNumber(timestamp.day),
       _padNumber(timestamp.month),
       _padNumber(timestamp.year, width: 4),
     ].join(".");
 
-    var time =
+    final time =
         "${_padNumber(timestamp.hour)}:${_padNumber(timestamp.minute)}:${_padNumber(timestamp.second)}.${_padNumber(timestamp.millisecond)}";
 
     return "[$date] [$time]";
