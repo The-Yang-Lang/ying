@@ -6,6 +6,10 @@ YING_ENTRYPOINT=./apps/ying/bin/ying.dart
 NODEMON_EXECUTABLE=npx nodemon
 NODEMON_DEFAULT_ARGS=-w ./apps -w ./packages -e dart
 
+.PHONY: install
+install:
+	melos bootstrap
+
 .PHONY: clear
 clear:
 	@cls || clear
