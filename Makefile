@@ -18,6 +18,10 @@ clear:
 run:
 	${DART_EXECUTABLE} run ${YING_ENTRYPOINT}
 
+.PHONY: debug
+debug:
+	${DART_EXECUTABLE} --pause-isolates-on-start --observe run ${YING_ENTRYPOINT} --help
+
 .PHONY: test
 test:
 	${MELOS_EXECUTABLE} run test
