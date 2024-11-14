@@ -8,7 +8,7 @@ You should follow these steps in order to make a successful contribution:
 2. Fork the repository (you can do that on the [repository page](https://github.com/The-Yang-Lang/ying) in the top right corner)
 3. Clone the repository to your local filesystem (usually done via `git clone git@github.com:MY-USERNAME/ying.git` - make sure to replace "MY-USERNAME" with your actual username)
 4. Make changes to the source code
-5. Commit the changes (usually done via `git add .` and `git commit -m "Describe the changes here"`)
+5. Commit the changes with the [conventional commit schema](https://www.conventionalcommits.org/en/v1.0.0/) (usually done via `git add .` and `git commit -m "Describe the changes here"`)
 6. Push the changes to your fork (usually done via `git push`)
 7. Create a pull request (after you have pushed your changes to your fork, Github should show the "Contribute" button)
     1. Make sure that your fork is up-to-date with the latest changes. You can do this quickly via the "Sync fork" button.
