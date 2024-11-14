@@ -2,4 +2,4 @@
 
 ## Contributing to the project
 
-Please see [./CONTRIBUTING.md](./CONTRIBUTING.md) for further instructions.
+Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for further instructions.
