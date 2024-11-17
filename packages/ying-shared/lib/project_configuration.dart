@@ -1,3 +1,5 @@
+import 'dart:convert' show JsonUnsupportedObjectError;
+
 import 'package:ying_shared/license.dart' show isValidSpdxLicense;
 import 'package:ying_shared/semantic_version.dart' show parseSemanticVersion;
 
@@ -41,14 +43,27 @@ class ProjectConfiguration {
   String version;
   String license;
   Map<String, String> scripts;
+  Map<String, String> dependencies;
+  Map<String, String> developmentDependencies;
 
-  ProjectConfiguration(this.name, this.version, this.license, this.scripts);
+  ProjectConfiguration(
+    this.name,
+    this.version,
+    this.license,
+    this.scripts,
+    this.dependencies,
+    this.developmentDependencies,
+  );
 
   /// Returns a new instance of the ProjectConfiguration based on the given name, version and license.
   ///
   /// This function is only used in the "init" command.
   ProjectConfiguration.init(this.name, this.version, this.license)
-      : scripts = {"test": "ying test"};
+      : scripts = {
+          "test": "ying test",
+        },
+        dependencies = {},
+        developmentDependencies = {};
 
   /// Checks if the current project configuration is valid in terms of
   /// - valid package name
@@ -70,10 +85,83 @@ class ProjectConfiguration {
     return true;
   }
 
-  Map<String, dynamic> toJson() => {
-        "name": name,
-        "version": version,
-        "license": license,
-        "scripts": scripts,
-      };
+  Map<String, dynamic> toJson() {
+    final result = <String, dynamic>{
+      "name": name,
+      "version": version,
+      "license": license,
+    };
+
+    if (scripts.isNotEmpty) {
+      result["scripts"] = scripts;
+    }
+
+    if (dependencies.isNotEmpty) {
+      result["dependencies"] = dependencies;
+    }
+
+    if (developmentDependencies.isNotEmpty) {
+      result["developmentDependencies"] = developmentDependencies;
+    }
+
+    return result;
+  }
+
+  static ProjectConfiguration fromJson(dynamic json) {
+    if (json is! Map<String, dynamic>) {
+      throw JsonUnsupportedObjectError(json, cause: "not a map");
+    }
+
+    final name = json["name"];
+
+    if (name is! String) {
+      throw JsonUnsupportedObjectError(json["name"], cause: "not a string");
+    }
+
+    final version = json["version"];
+
+    if (version is! String) {
+      throw JsonUnsupportedObjectError(json["version"], cause: "not a string");
+    }
+
+    final license = json["license"];
+
+    if (license is! String) {
+      throw JsonUnsupportedObjectError(json["license"], cause: "not a string");
+    }
+
+    final scripts = json["scripts"] ?? <String, String>{};
+
+    if (scripts is! Map<String, String>) {
+      throw JsonUnsupportedObjectError(json["scripts"], cause: "not a map");
+    }
+
+    final dependencies = json["dependencies"] ?? <String, String>{};
+
+    if (dependencies is! Map<String, String>) {
+      throw JsonUnsupportedObjectError(
+        json["dependencies"],
+        cause: "not a map",
+      );
+    }
+
+    final developmentDependencies =
+        json["developmentDependencies"] ?? <String, String>{};
+
+    if (developmentDependencies is! Map<String, String>) {
+      throw JsonUnsupportedObjectError(
+        json["developmentDependencies"],
+        cause: "not a map",
+      );
+    }
+
+    return ProjectConfiguration(
+      name,
+      version,
+      license,
+      scripts,
+      dependencies,
+      developmentDependencies,
+    );
+  }
 }
