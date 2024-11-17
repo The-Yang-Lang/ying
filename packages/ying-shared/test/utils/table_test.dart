@@ -86,6 +86,32 @@ void main() {
       );
 
       test(
+        'it should render a table with two columns, one data row and the exactly required space',
+        () {
+          final expected = """
+┌──────────┬─────┐
+│ Name     │ Age │
+├──────────┼─────┤
+│ John Doe │ 30  │
+└──────────┴─────┘
+""";
+
+          final result = generateTable(
+            mappings: {
+              "name": ColumnMapping(title: "Name"),
+              "age": ColumnMapping(title: "Age"),
+            },
+            rows: [
+              {"name": "John Doe", "age": "30"},
+            ],
+            maximumWidth: 18,
+          );
+
+          expect(result, expected.trim());
+        },
+      );
+
+      test(
         'it should render a table with two columns, one data row and not enough space',
         () {
           final expected = """
