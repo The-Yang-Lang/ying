@@ -1,3 +1,4 @@
+/// The mapping between SPDX identifier and the full name of the license
 const validIdentifiers = {
   "0BSD": "BSD Zero Clause License",
   "3D-Slicer-1.0": "3D Slicer License v1.0",
@@ -702,6 +703,23 @@ List<String> lowercasedIdentifiers() {
   return validIdentifiers.keys.map((key) => key.toLowerCase()).toList();
 }
 
-/// Checks if the given identifier is a valid SPDX identifier
-bool isValidSpdxLicense(String identifier) =>
-    lowercasedIdentifiers().contains(identifier);
+/// The regular expression for validating the license reference
+final licenseRefRegex = RegExp(r'^licenseref-.*$', caseSensitive: false);
+
+/// Checks if the given [input] is a valid license reference in terms of SPDX
+bool isValidLicenseRef(String input) {
+  return licenseRefRegex.hasMatch(input);
+}
+
+/// Checks if the given [identifier] is a valid SPDX identifier
+bool isValidSpdxLicense(String identifier) {
+  if (lowercasedIdentifiers().contains(identifier)) {
+    return true;
+  }
+
+  if (isValidLicenseRef(identifier)) {
+    return true;
+  }
+
+  return false;
+}
