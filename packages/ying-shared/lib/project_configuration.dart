@@ -40,7 +40,7 @@ class ProjectConfiguration {
   String name;
   String version;
   String license;
-  Map<String, String>? scripts;
+  Map<String, String> scripts;
 
   ProjectConfiguration(this.name, this.version, this.license, this.scripts);
 
