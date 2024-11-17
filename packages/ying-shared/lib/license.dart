@@ -713,6 +713,10 @@ bool isValidLicenseRef(String input) {
 
 /// Checks if the given [identifier] is a valid SPDX identifier
 bool isValidSpdxLicense(String identifier) {
+  if (validIdentifiers.containsKey(identifier)) {
+    return true;
+  }
+
   if (lowercasedIdentifiers().contains(identifier)) {
     return true;
   }
