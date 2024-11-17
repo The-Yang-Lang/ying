@@ -54,7 +54,7 @@ class ProjectConfiguration {
   /// - valid package name
   /// - valid semantic version
   /// - valid SPDX identifier / SPDX license ref
-  bool isValid() {
+  bool validate() {
     if (validatePackageName(name) == false) {
       return false;
     }
