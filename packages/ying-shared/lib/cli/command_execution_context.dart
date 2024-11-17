@@ -4,7 +4,7 @@ import 'package:ying_shared/cli/flag.dart';
 import 'package:ying_shared/utils/stringify.dart';
 
 final flagPattern = RegExp(
-  r"(?<dashes>-{1,2})(?<name>\w+)(=(?<value>.*))?",
+  r"^(?<dashes>-{1,2})(?<name>\w+)(=(?<value>.*))?$",
   dotAll: false,
 );
 
