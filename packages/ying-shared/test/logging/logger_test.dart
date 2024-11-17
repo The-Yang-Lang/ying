@@ -96,5 +96,18 @@ void main() {
         }, prints("[01.01.2024] [00:00:00.00] [TRACE] [unit] unit-test\n"));
       });
     });
+
+    test('it should not print anything when the LogLevel is too low', () {
+      withClock(Clock.fixed(DateTime(2024)), () {
+        expect(() {
+          final logger = Logger.withSimpleName("unit", LogLevel.info);
+
+          logger.trace("unit-test");
+        },
+            isNot(
+              prints("[01.01.2024] [00:00:00.00] [TRACE] [unit] unit-test\n"),
+            ));
+      });
+    });
   });
 }
