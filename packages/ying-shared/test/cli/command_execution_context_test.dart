@@ -37,6 +37,17 @@ void main() {
         expect(result.parsedFlags["force"], true);
       });
 
+      test('it should skip flags which are not registered', () {
+        final command = TestCommand();
+        command.flags = [
+          BoolFlag("force", ["f"], false)
+        ];
+
+        final result = createCommandExecutionContext(command, ["-test=true"]);
+
+        expect(result.parsedFlags["force"], false);
+      });
+
       test(
         'it should throw an error when there are unparsed required flags',
         () {
