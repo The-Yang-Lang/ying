@@ -1,5 +1,5 @@
-import 'package:ying_shared/license.dart';
-import 'package:ying_shared/semantic_version.dart';
+import 'package:ying_shared/license.dart' show isValidSpdxLicense;
+import 'package:ying_shared/semantic_version.dart' show parseSemanticVersion;
 
 /// The regex for validating short package names
 final shortNameRegex = RegExp(r'^[a-zA-Z](-?[a-zA-Z0-9])*$');
