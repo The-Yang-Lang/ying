@@ -37,6 +37,15 @@ void main() {
         expect(result.parsedFlags["force"], true);
       });
 
+      test('it should skip extranous arguments', () {
+        final command = TestCommand();
+
+        final result = createCommandExecutionContext(command, ["unit-test"]);
+
+        expect(result.parsedArguments, {});
+        expect(result.parsedFlags, {});
+      });
+
       test('it should skip flags which are not registered', () {
         final command = TestCommand();
         command.flags = [
