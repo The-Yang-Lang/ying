@@ -10,6 +10,7 @@ environment:
 # Add regular dependencies here.
 dependencies:
     meta: ^1.16.0
+    path: ^1.9.1
     ying_shared:
         path: ../../packages/ying-shared/
     # path: ^1.8.0
