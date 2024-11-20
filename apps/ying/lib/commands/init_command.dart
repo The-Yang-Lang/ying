@@ -1,15 +1,15 @@
 import 'dart:io';
 
+import 'package:path/path.dart';
 import 'package:ying_shared/cli/argument.dart';
 import 'package:ying_shared/cli/command.dart';
 import 'package:ying_shared/cli/command_execution_context.dart';
 import 'package:ying_shared/cli/flag.dart';
+import 'package:ying_shared/license.dart';
 import 'package:ying_shared/logging/logger.dart';
+import 'package:ying_shared/project.dart';
 import 'package:ying_shared/project_configuration.dart';
 import 'package:ying_shared/semantic_version.dart';
-import 'package:ying_shared/license.dart';
-import 'package:ying_shared/project.dart';
-import 'package:path/path.dart';
 
 class InitCommand extends Command {
   final Logger logger = Logger.withSimpleNameFromEnv("init");
