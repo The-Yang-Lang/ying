@@ -39,8 +39,10 @@ void _createBoilerplateFiles(Directory projectDirectory) {
 
     entrypointFile.writeAsStringSync("""import { stdout } from "process";
 
-void main() {
+int main() {
 \tstdout.write_line("Hello world! How are you?");
+
+\treturn 0;
 }
 """);
   }

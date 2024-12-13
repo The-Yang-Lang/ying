@@ -41,11 +41,15 @@ String _stringifyIteratable(
 /// Examples:
 /// - `Logger(["Main"])` -> `'Logger(\n    currentLevel: LogLevel.info,\n    nameParts: [\n        "Main",\n    ])'`
 String stringifyInstance(
-  String className,
-  Map<String, dynamic> fields, {
+  String className, {
+  Map<String, dynamic>? fields,
   int indentation = 0,
 }) {
   final valueIndentation = indentation + 1;
+
+  if (fields == null) {
+    return "$className()";
+  }
 
   final stringifiedFields = fields.entries.map((entry) {
     final key = entry.key;

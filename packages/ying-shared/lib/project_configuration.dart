@@ -38,6 +38,34 @@ bool validatePackageName(String input) {
   return false;
 }
 
+enum TargetPlatform {
+  linux32(32),
+  linux64(64),
+  windows32(32),
+  windows64(64),
+  unix32(32),
+  unix64(64),
+  macOsIntel(null),
+  macOsArm(null),
+  ios(null),
+  android(null),
+  javascript(null),
+  typescript(null),
+  riscv(null);
+
+  final int? bitSize;
+
+  const TargetPlatform(this.bitSize);
+}
+
+class ProjectTarget {
+  final String entrypoint;
+
+  final TargetPlatform platform;
+
+  const ProjectTarget(this.entrypoint, this.platform);
+}
+
 class ProjectConfiguration {
   String name;
   String version;
@@ -45,6 +73,7 @@ class ProjectConfiguration {
   Map<String, String> scripts;
   Map<String, String> dependencies;
   Map<String, String> developmentDependencies;
+  List<ProjectTarget> targets;
 
   ProjectConfiguration(
     this.name,
@@ -53,6 +82,7 @@ class ProjectConfiguration {
     this.scripts,
     this.dependencies,
     this.developmentDependencies,
+    this.targets,
   );
 
   /// Returns a new instance of the ProjectConfiguration based on the given name, version and license.
@@ -63,7 +93,8 @@ class ProjectConfiguration {
           "test": "ying test",
         },
         dependencies = {},
-        developmentDependencies = {};
+        developmentDependencies = {},
+        targets = [];
 
   /// Checks if the current project configuration is valid in terms of
   /// - valid package name
@@ -155,6 +186,15 @@ class ProjectConfiguration {
       );
     }
 
+    final targets = json["targets"] ?? <ProjectTarget>[];
+
+    if (targets is! List<ProjectTarget>) {
+      throw JsonUnsupportedObjectError(
+        json["targets"],
+        cause: "not a list",
+      );
+    }
+
     return ProjectConfiguration(
       name,
       version,
@@ -162,6 +202,7 @@ class ProjectConfiguration {
       scripts,
       dependencies,
       developmentDependencies,
+      targets,
     );
   }
 }

@@ -70,7 +70,7 @@ class Logger {
 
   /// Returns a `String` representation of the current instance
   @override
-  String toString() => stringifyInstance("Logger", {
+  String toString() => stringifyInstance("Logger", fields: {
         "currentLevel": currentLevel,
         "nameParts": nameParts,
       });

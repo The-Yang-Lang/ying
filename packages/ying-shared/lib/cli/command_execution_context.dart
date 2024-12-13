@@ -146,7 +146,7 @@ class CommandExecutionContext {
 
   @override
   String toString() {
-    return stringifyInstance("CommandExecutionContext", {
+    return stringifyInstance("CommandExecutionContext", fields: {
       "parsedArguments": parsedArguments,
       "parsedFlags": parsedFlags,
     });

@@ -1,3 +1,4 @@
+import 'package:ying/commands/build_command.dart';
 import 'package:ying/commands/init_command.dart';
 import 'package:ying_shared/cli/application.dart';
 import 'package:ying_shared/logging/logger.dart';
@@ -14,7 +15,7 @@ void main(List<String> arguments) {
     name: "ying",
     description: "The official CLI for the Yang language",
     "0.0.0",
-    [InitCommand()],
+    [InitCommand(), BuildCommand()],
   );
 
   application.run(arguments);

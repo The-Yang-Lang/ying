@@ -187,7 +187,7 @@ class Application {
         try {
           await commandToRun.execute(commandExecutionContext);
         } catch (error) {
-          print(
+          logger.error(
             "An unexpected error occurred while executing command '${commandToRun.name}': $error",
           );
         }
